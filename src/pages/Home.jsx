@@ -4,7 +4,7 @@ export function Home(){
 
   return(
     <>
-      <h1 className="text-red-600">Home</h1>
+      <h1 className="text-9xl">Home</h1>
     </>
   )
 }
