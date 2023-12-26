@@ -42,7 +42,7 @@ export function Home(){
     .then(response => response.json())
     .then(data => {return data.artists.items[0].id})
 
-    var albums = await fetch(`https://api.spotify.com/v1/artists/${artistID}/albums?album_type=album&limit=20`,{
+    var albums = await fetch(`https://api.spotify.com/v1/artists/${artistID}/albums?album_type=album&limit=50`,{
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${accessToken}`
