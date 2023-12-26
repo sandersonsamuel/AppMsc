@@ -42,7 +42,7 @@ export function Home(){
     .then(response => response.json())
     .then(data => {return data.artists.items[0].id})
 
-    var albums = await fetch(`https://api.spotify.com/v1/artists/${artistID}/albums`,{
+    var albums = await fetch(`https://api.spotify.com/v1/artists/${artistID}/albums?album_type=album&limit=20`,{
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${accessToken}`
@@ -54,16 +54,22 @@ export function Home(){
   console.log(albuns)
 
   return(
-    <div className='w-full flex flex-col justify-center bg-gradient-to-r from-slate-900 to-slate-950 text-white'>
+    <div className='w-full h-screen flex flex-col bg-gradient-to-r from-slate-900 to-slate-950 text-white'>
+      <p className='text-center text-red-500 p-5'>*Atualmente a pesquisa retorna apenas os albuns do artista que for digitado abaixo</p>
       <nav className='p-5 px-10 flex w-full justify-between'>
-        <form onSubmit={procurar} className='flex w-full justify-center'>
+        <form onSubmit={procurar} className='flex w-full justify-center items-center'>
+
           <input 
             type="text" 
-            className='w-96 rounded-l-md p-2 text-black'
+            className='w-96 rounded-l-lg p-2 text-black outline-none px-4'
             onChange={(event)=> setPesq(event.target.value)}
             />
-          <button className='bg-purple-900 p-2 px-4 rounded-r-md'>Procurar</button>
+          <button className='bg-purple-900 p-2 px-4 rounded-r-lg hover:bg-purple-950'>Procurar</button>
+
+          <i onClick={()=> setAlbuns([])} className="fa-solid fa-x m-0 text-xl cursor-pointer hover:scale-125 transition text-red-600 ml-5"></i>
+          
         </form>
+
       </nav>
 
       <Dados albuns={albuns} />
