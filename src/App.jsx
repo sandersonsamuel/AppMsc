@@ -1,13 +1,28 @@
-import { useState } from 'react'
-import './App.css'
-import { Home } from './pages/Home'
+import { useState, useEffect } from 'react'
+import { Home } from './pages/Home';
+import { Login } from './pages/Login';
+import 'tailwindcss/tailwind.css';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [user, setUser] = useState(true)
+
+  /* useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []); */
 
   return (
     <>
-      <Home/>
+      {
+        user === null? (
+          <Login/>
+        ): (<Home/>)
+      }
     </>
   )
 }
