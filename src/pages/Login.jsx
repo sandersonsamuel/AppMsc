@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { auth } from "../configs/firebaseConfigs"
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { auth } from "../configs/FirebaseConfigs"
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth"
 
 export function Login(){
 
@@ -12,7 +12,11 @@ export function Login(){
   function sigInGoogle(){
     signInWithPopup(auth, provider).then(result=>{
       console.log(result.user)
-    })
+    }).catch(error=> console.log(error))
+  }
+
+  async function logOut(){
+    await signOut(auth).then(response=> console.log(response)).catch(error=> console.log(error))
   }
 
   return(
@@ -58,7 +62,7 @@ export function Login(){
             <p>Entre com o Google</p>
           </button>
 
-          <a href="/Login" className="text-center text-blue-600 cursor-pointer">
+          <a onClick={logOut} href="/Login" className="text-center text-blue-600 cursor-pointer">
             Não tenho uma conta
           </a>
         </form>

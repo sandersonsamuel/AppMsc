@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Dados } from '../components/Dados';
 import '../App.css'
+import { PerfilMin } from '../components/PerfilMin';
+import { CLIENT_ID } from '../configs/SpotifyConfigs';
+import { CLIENT_SECRET } from '../configs/SpotifyConfigs';
 
 export function Home(){
 
   const [pesq, setPesq] = useState("")
   const [albuns, setAlbuns] = useState([])
 
-  const CLIENT_ID = "a3537d89cf8c49ceb6deb52e6472ae6a"
-  const CLIENT_SECRET = "49bdcc4d09ff4d3cac6c7da661b723b0"
+  
 
   const [accessToken, setAccessToken] = useState("")
 
@@ -57,8 +59,9 @@ export function Home(){
 
   return(
     <div className='w-full h-screen flex flex-col bg-gradient-to-r from-slate-900 to-slate-950 text-white relative'>
-      <p className='text-center text-red-500 p-5'>*Atualmente a pesquisa retorna apenas os albuns do artista que for digitado abaixo</p>
-      <nav className='p-2 md:p-5 md:px-10 flex w-full justify-between bg-gradient-to-r from-slate-900 to-slate-950 fixed z-50'>
+
+      <nav className='p-2 md:p-5 md:px-16 flex w-full justify-between bg-gradient-to-r from-slate-900 to-slate-950 fixed z-50'>
+        <h1 className='text-3xl font-bold'>Logo.</h1>
         <form onSubmit={procurar} className='flex w-full justify-center items-center'>
 
           <input 
@@ -67,11 +70,12 @@ export function Home(){
             onChange={(event)=> setPesq(event.target.value)}
             
             />
-          <button className='bg-purple-900 p-2 px-4 rounded-r-lg hover:bg-purple-950'><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button className='bg-purple-900 p-2 px-4 rounded-r-lg hover:bg-purple-950'><i className="fa-solid fa-magnifying-glass"></i></button>
 
           <i onClick={()=> setAlbuns([])} className="fa-solid fa-x m-0 text-sm md:text-xl cursor-pointer hover:scale-125 transition text-red-600 ml-2 md:ml-5"></i>
           
         </form>
+        <PerfilMin/>
 
       </nav>
 

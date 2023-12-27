@@ -1,23 +1,29 @@
 import { useState, useEffect } from 'react'
-import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { AppRoutes } from './Routes';
+import { auth } from './configs/FirebaseConfigs';
 
 function App() {
 
-  const [user, setUser] = useState(true)
+  const [user, setUser] = useState(null)
 
-  /* useEffect(() => {
+  useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setUser(currentUser);
+      setUser(currentUser)
     });
 
     return () => unsubscribe();
-  }, []); */
+  }, [auth])
+
+  console.log(user)
 
   return (
     <>
-      <AppRoutes/>
+      {user ? (
+        <AppRoutes/>
+      ):(
+        <Login/>
+      )}
     </>
   )
 }
