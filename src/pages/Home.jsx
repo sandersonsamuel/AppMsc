@@ -10,8 +10,6 @@ export function Home(){
   const [pesq, setPesq] = useState("")
   const [albuns, setAlbuns] = useState([])
 
-  
-
   const [accessToken, setAccessToken] = useState("")
 
 

@@ -1,4 +1,4 @@
-import { auth } from "../configs/FirebaseConfigs"
+import { auth } from "../configs/firebase"
 export function PerfilMin(){
 
   const user = auth.currentUser

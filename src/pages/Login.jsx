@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { auth } from "../configs/FirebaseConfigs"
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth"
+import { auth } from "../configs/firebase"
 
 export function Login(){
 
