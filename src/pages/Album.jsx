@@ -7,8 +7,8 @@ import { Faixas } from './Faixas'
 
 export function Album({match}){
 
-  const id = useParams()
-  const albumId = id.id
+  const { id } = useParams()
+  const albumId = id
 
   const [accessToken, setAccessToken] = useState("")
   const [album, setAlbum] = useState(null)
