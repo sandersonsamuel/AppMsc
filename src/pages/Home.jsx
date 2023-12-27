@@ -56,9 +56,9 @@ export function Home(){
   console.log(albuns)
 
   return(
-    <div className='w-full h-screen flex flex-col bg-gradient-to-r from-slate-900 to-slate-950 text-white'>
+    <div className='w-full h-screen flex flex-col bg-gradient-to-r from-slate-900 to-slate-950 text-white relative'>
       <p className='text-center text-red-500 p-5'>*Atualmente a pesquisa retorna apenas os albuns do artista que for digitado abaixo</p>
-      <nav className='p-2 md:p-5 md:px-10 flex w-full justify-between'>
+      <nav className='p-2 md:p-5 md:px-10 flex w-full justify-between bg-gradient-to-r from-slate-900 to-slate-950 fixed z-50'>
         <form onSubmit={procurar} className='flex w-full justify-center items-center'>
 
           <input 

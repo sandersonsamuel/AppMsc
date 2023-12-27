@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
+import { AppRoutes } from './Routes';
 
 function App() {
 
@@ -16,11 +17,7 @@ function App() {
 
   return (
     <>
-      {
-        user === null? (
-          <Login/>
-        ): (<Home/>)
-      }
+      <AppRoutes/>
     </>
   )
 }
