@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Login } from './pages/Login';
 import { AppRoutes } from './Routes';
-import { auth } from './configs/FirebaseConfigs';
+import { auth } from '../src/configs/FirebaseConfigs';
 
 function App() {
 
