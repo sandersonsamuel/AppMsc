@@ -11,6 +11,7 @@ export function Home(){
 
   const [accessToken, setAccessToken] = useState("")
 
+
   useEffect(() => {
 
     var authParameters = {
@@ -56,7 +57,7 @@ export function Home(){
   return(
     <div className='w-full h-screen flex flex-col bg-gradient-to-r from-slate-900 to-slate-950 text-white'>
       <p className='text-center text-red-500 p-5'>*Atualmente a pesquisa retorna apenas os albuns do artista que for digitado abaixo</p>
-      <nav className='p-5 px-10 flex w-full justify-between'>
+      <nav className='p-2 md:p-5 md:px-10 flex w-full justify-between'>
         <form onSubmit={procurar} className='flex w-full justify-center items-center'>
 
           <input 
@@ -64,9 +65,9 @@ export function Home(){
             className='w-96 rounded-l-lg p-2 text-black outline-none px-4'
             onChange={(event)=> setPesq(event.target.value)}
             />
-          <button className='bg-purple-900 p-2 px-4 rounded-r-lg hover:bg-purple-950'>Procurar</button>
+          <button className='bg-purple-900 p-2 px-4 rounded-r-lg hover:bg-purple-950'><i class="fa-solid fa-magnifying-glass"></i></button>
 
-          <i onClick={()=> setAlbuns([])} className="fa-solid fa-x m-0 text-xl cursor-pointer hover:scale-125 transition text-red-600 ml-5"></i>
+          <i onClick={()=> setAlbuns([])} className="fa-solid fa-x m-0 text-sm md:text-xl cursor-pointer hover:scale-125 transition text-red-600 ml-2 md:ml-5"></i>
           
         </form>
 
