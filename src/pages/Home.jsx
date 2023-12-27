@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Dados } from '../components/Dados';
+import '../App.css'
 
 export function Home(){
 
@@ -62,8 +63,9 @@ export function Home(){
 
           <input 
             type="text" 
-            className='w-96 rounded-l-lg p-2 text-black outline-none px-4'
+            className='rounded-l-lg p-2 text-black outline-none px-4 w-32 ssm:w-40 sm:w-96'
             onChange={(event)=> setPesq(event.target.value)}
+            
             />
           <button className='bg-purple-900 p-2 px-4 rounded-r-lg hover:bg-purple-950'><i class="fa-solid fa-magnifying-glass"></i></button>
 
