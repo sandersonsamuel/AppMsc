@@ -4,16 +4,21 @@ import '../App.css'
 import { PerfilMin } from '../components/PerfilMin';
 import { CLIENT_ID } from '../configs/SpotifyConfigs';
 import { CLIENT_SECRET } from '../configs/SpotifyConfigs';
-import { signOut } from 'firebase/auth';
-import { auth } from '../configs/firebase';
-import { useNavigate } from 'react-router-dom';
 
 export function Home(){
 
   const [pesq, setPesq] = useState("")
   const [albuns, setAlbuns] = useState([])
+  const [artists, setArtists] = useState("")
 
   const [accessToken, setAccessToken] = useState("")
+
+  useEffect(()=>{
+    const ultimaPesq = sessionStorage.getItem('ultimaPesq')
+    if (ultimaPesq){
+      setPesq(ultimaPesq)
+    }
+  },[])
 
 
   useEffect(() => {
@@ -35,6 +40,8 @@ export function Home(){
 
   async function procurar(event){
 
+    sessionStorage.setItem('ultimaPesq', pesq);
+
     event.preventDefault()
 
     var artistParameters = {
@@ -47,7 +54,10 @@ export function Home(){
 
     var artistID = await fetch('https://api.spotify.com/v1/search?q=' + pesq + '&type=artist', artistParameters)
     .then(response => response.json())
-    .then(data => {return data.artists.items[0].id})
+    .then(data => {
+      console.log(data)
+      return data.artists.items[0].id
+    })
 
     var albums = await fetch(`https://api.spotify.com/v1/artists/${artistID}/albums?album_type=album&limit=50`,{
       method: 'GET',
@@ -76,6 +86,7 @@ export function Home(){
             <input 
               type="text" 
               className='rounded-l-lg p-2 text-black outline-none px-4 w-32 ssm:w-40 sm:w-96'
+              value={pesq}
               onChange={(event)=> setPesq(event.target.value)}
               
               />
@@ -83,6 +94,7 @@ export function Home(){
 
             <i onClick={()=>{
               setAlbuns([])
+              sessionStorage.removeItem("ultimaPesq")
             }} className="fa-solid fa-x m-0 text-sm md:text-xl cursor-pointer hover:scale-125 transition text-red-600 ml-2 md:ml-5"></i>
             
           </form>

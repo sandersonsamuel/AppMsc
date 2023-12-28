@@ -7,7 +7,8 @@ module.exports = {
         'ssm': '250px',
       },
       boxShadow: {
-        'envolve': '0 5px 15px 13px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)'
+        'envolve': '0 5px 15px 13px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+        'envolve-xl': '0 5px 15px 25px rgb(0 0 0 / 0.1), 0 10px 10px 0px rgb(0 0 0 / 0.1)'
       }
     },
   },
