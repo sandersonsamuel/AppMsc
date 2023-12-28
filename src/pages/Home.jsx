@@ -4,6 +4,9 @@ import '../App.css'
 import { PerfilMin } from '../components/PerfilMin';
 import { CLIENT_ID } from '../configs/SpotifyConfigs';
 import { CLIENT_SECRET } from '../configs/SpotifyConfigs';
+import { signOut } from 'firebase/auth';
+import { auth } from '../configs/firebase';
+import { useNavigate } from 'react-router-dom';
 
 export function Home(){
 
@@ -25,6 +28,8 @@ export function Home(){
     fetch('https://accounts.spotify.com/api/token', authParameters)
     .then(Result => Result.json())
     .then(data => setAccessToken(data.access_token))
+
+
     
   }, [])
 
@@ -50,36 +55,49 @@ export function Home(){
         'Authorization': `Bearer ${accessToken}`
       }
     }).then(response => response.json())
-    .then(data => setAlbuns(data.items))
+    .then(data => {
+      setAlbuns(data.items)
+      sessionStorage.setItem('ultimaPesq', pesq)
+    })
   }
 
-  console.log(albuns)
-
   return(
-    <div className='w-full h-screen flex flex-col bg-gradient-to-r from-slate-900 to-slate-950 text-white relative'>
+    <>
+      <div className='w-full h-screen flex flex-col bg-gradient-to-r from-slate-900 to-slate-950 text-white relative'>
+      <div className=''>
+        
+        <nav className='p-2 md:p-5 md:px-16 md:flex w-full justify-between bg-gradient-to-r from-slate-900 to-slate-950  z-50'>
+          <h1 className='ssm:mb-5 md:m-0 text-center md:text-start text-3xl font-bold'>Logo.</h1>
+          <div className='md:hidden mb-5'>
+            <PerfilMin/>
+          </div>
+          <form onSubmit={procurar} className='flex w-full justify-center items-center'>
 
-      <nav className='p-2 md:p-5 md:px-16 flex w-full justify-between bg-gradient-to-r from-slate-900 to-slate-950 fixed z-50'>
-        <h1 className='text-3xl font-bold'>Logo.</h1>
-        <form onSubmit={procurar} className='flex w-full justify-center items-center'>
+            <input 
+              type="text" 
+              className='rounded-l-lg p-2 text-black outline-none px-4 w-32 ssm:w-40 sm:w-96'
+              onChange={(event)=> setPesq(event.target.value)}
+              
+              />
+            <button className='bg-purple-900 p-2 px-4 rounded-r-lg hover:bg-purple-950'><i className="fa-solid fa-magnifying-glass"></i></button>
 
-          <input 
-            type="text" 
-            className='rounded-l-lg p-2 text-black outline-none px-4 w-32 ssm:w-40 sm:w-96'
-            onChange={(event)=> setPesq(event.target.value)}
+            <i onClick={()=>{
+              setAlbuns([])
+            }} className="fa-solid fa-x m-0 text-sm md:text-xl cursor-pointer hover:scale-125 transition text-red-600 ml-2 md:ml-5"></i>
             
-            />
-          <button className='bg-purple-900 p-2 px-4 rounded-r-lg hover:bg-purple-950'><i className="fa-solid fa-magnifying-glass"></i></button>
+          </form>
 
-          <i onClick={()=> setAlbuns([])} className="fa-solid fa-x m-0 text-sm md:text-xl cursor-pointer hover:scale-125 transition text-red-600 ml-2 md:ml-5"></i>
-          
-        </form>
-        <PerfilMin/>
+          <div className='hidden md:flex'>
+            <PerfilMin/>
+          </div>
 
-      </nav>
+        </nav>
+      </div>
 
       <Dados albuns={albuns} />
 
     </div>
+    </>
     
   )
 }

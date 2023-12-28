@@ -15,8 +15,6 @@ function App() {
     return () => unsubscribe();
   }, [auth])
 
-  console.log(user)
-
   return (
     <>
       {user ? (

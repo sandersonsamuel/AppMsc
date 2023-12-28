@@ -2,10 +2,9 @@ import { useParams } from 'react-router-dom'
 import { CLIENT_SECRET } from '../configs/SpotifyConfigs'
 import { CLIENT_ID } from '../configs/SpotifyConfigs'
 import { useState, useEffect } from 'react'
-import { useColor } from 'color-thief-react'
 import { Faixas } from './Faixas'
 
-export function Album({match}){
+export function Album(){
 
   const { id } = useParams()
   const albumId = id
@@ -17,8 +16,6 @@ export function Album({match}){
   const [error, setError] = useState(null)
 
   const [imgUrl, setImgUrl] = useState('')
-
-  const { data, loading, erro } = useColor('https://static.significados.com.br/foto/cruzamento-teste-1.jpg', 'hex');
 
   useEffect(() => {
 
@@ -56,18 +53,18 @@ export function Album({match}){
   return(
     <>
       {error ? <div className='text-5xl'>Erro: {error.message}</div> :(album && (
-        <div className='w-full h-screen bg-neutral-800 text-white flex flex-col p-5'>
-          <div className='flex align-bottom position-relative items-end gap-5 shadow-xl pb-10 p-5'>
+        <div className='w-full h-full bg-neutral-800 text-white flex flex-col p-5'>
+          <div className='md:flex align-bottom position-relative items-end gap-5 shadow-xl pb-10 p-5'>
               <img src={album.images[1].url} alt={album.name}/>
               <div>
-                <h1 className='text-2xl font-bold'>Album</h1>
-                <h1 className='text-7xl font-bold mb-3'>{album.name}</h1>
+                <h1 className='text-xl sm:text-2xl font-bold'>Album</h1>
+                <h1 className='text-3xl sm:text-7xl font-bold mb-3'>{album.name}</h1>
                 <div className='flex gap-2'>
-                  <h1 className='text-xl font-bold'>{album.artists[0].name}</h1>
+                  <h1 className='sm:text-xl font-bold'>{album.artists[0].name}</h1>
                   <p className='text-xl'>/</p>
-                  <h1 className='text-xl font-bold'>{dateAlbum}</h1>
+                  <h1 className='sm:text-xl font-bold'>{dateAlbum}</h1>
                   <p className='text-xl'>/</p>
-                  <h1 className='text-xl font-bold'>{album.total_tracks} faixas</h1>
+                  <h1 className='sm:text-xl font-bold'>{album.total_tracks} faixas</h1>
                 </div>
               </div>
             </div>
