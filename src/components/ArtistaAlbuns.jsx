@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { CLIENT_ID, CLIENT_SECRET } from "../configs/SpotifyConfigs";
 import { useState, useEffect } from "react";
 import { Albuns } from "./Albuns";
+import { SyncLoader } from "react-spinners";
 
 export function ArtistaAlbuns() {
   const { id } = useParams();
@@ -10,8 +11,10 @@ export function ArtistaAlbuns() {
   const [albuns, setAlbuns] = useState(null);
   const [artista, setArtista] = useState(null);
   const [InfoArtista, setInfoArtista] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
+    setIsLoading(true)
     const getAccessToken = async () => {
       const response = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
@@ -55,17 +58,27 @@ export function ArtistaAlbuns() {
       const accessToken = await getAccessToken();
       await getArtistData(accessToken);
       await getAlbums(accessToken);
+      await setIsLoading(false)
     };
 
     fetchData();
   }, [artistaId]);
 
-  return (
-    <>
-      <div className="justify-center p-2 md:p-10 w-full bg-gradient-to-bl from-slate-900 to-slate-950 min-h-screen text-white transition-all flex flex-col gap-5">
-        <h1 style={{overflowWrap: "break-word"}} className="text-6xl font-bold text-center w-full overflow- transition-all">Albuns de {artista}</h1>
-        <Albuns albuns={albuns} />
+  if(isLoading){
+
+    return (
+      <div className='w-screen h-screen flex justify-center items-center bg-neutral-800'>
+        <SyncLoader size={30} color="#364ed6" />
       </div>
-    </>
-  );
+    )
+  }else{
+    return (
+      <>
+        <div className="justify-center p-2 md:p-10 w-full bg-gradient-to-bl from-slate-900 to-slate-950 min-h-screen text-white transition-all flex flex-col gap-5">
+          <h1 style={{overflowWrap: "break-word"}} className="text-6xl font-bold text-center w-full overflow- transition-all">Albuns de {artista}</h1>
+          <Albuns albuns={albuns} />
+        </div>
+      </>
+    )
+  }
 }

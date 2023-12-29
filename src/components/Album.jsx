@@ -57,7 +57,7 @@ export function Album(){
       <>
         <ColorExtractor src={album.images[1].url} getColors={addColor} />
         <div className='bg-gradient-to-bl from-slate-900 to-slate-950 w-full h-full  text-white flex flex-col p-3 md:p-5 transition-all'>
-          <div style={{background: `${color}`}} className='shadow-envolve-xl flex align-bottom justify-between position-relative gap-5 pb-10 p-5 transition-all w-full'>
+          <div style={{background: `${color}`}} className="flex align-bottom justify-between position-relative gap-5 pb-10 p-5 transition-all w-full">
               <div className='md:flex items-end gap-10 transition-all'>
                 <img className='shadow-envolve-xl transition-all cursor-pointer hover:scale-105 w-60' src={album.images[0].url} alt={album.name}/>
                 <div>
@@ -78,7 +78,7 @@ export function Album(){
                 </Link>
                 <i className="text-2xl md:text-3xl fa-solid fa-pen-to-square p-2 sm:p-3 rounded-sm hover:brightness-90 cursor-pointer"></i>
               </div>
-            </div>
+          </div>
             <Faixas album={album} color={color}/>
         </div>
       </>
