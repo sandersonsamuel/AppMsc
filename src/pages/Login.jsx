@@ -11,7 +11,6 @@ export function Login(){
 
   function sigInGoogle(){
     signInWithPopup(auth, provider).then(result=>{
-      console.log(result.user)
     }).catch(error=> console.log(error))
   }
 

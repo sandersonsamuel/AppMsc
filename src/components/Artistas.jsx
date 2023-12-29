@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 
 export function Artistas({artistas}){
 
-  console.log(artistas);
-
   if (artistas){
     return(
       <>
