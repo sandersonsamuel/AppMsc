@@ -12,9 +12,9 @@ export function PerfilMin(){
 
   return(
     <>
-      <div className="flex gap-3 justify-center items-center bg-neutral-700 p-3 md:rounded-md transition-all">
-        <div className="">
-        <h1 className="hidden lg:block text-xl cursor-pointer">{userName[0]}</h1>
+      <div className="flex gap-3 justify-center items-center bg-slate-800 p-3 md:rounded-md transition-all">
+        <div className="flex justify-center items-center">
+          <h1 className="hidden lg:block text-xl cursor-pointer">{userName[0]}</h1>
         </div>
         <div>
           <img className="w-10 md:w-20 rounded-full cursor-pointer" src={user.photoURL} alt="foto de perfil do usuário" />

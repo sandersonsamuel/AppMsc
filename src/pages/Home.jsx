@@ -10,7 +10,6 @@ export function Home(){
   const [pesq, setPesq] = useState("")
   const [albuns, setAlbuns] = useState([])
   const [artists, setArtists] = useState("")
-
   const [accessToken, setAccessToken] = useState("")
 
   useEffect(()=>{
@@ -61,8 +60,7 @@ export function Home(){
 
   return(
     <>
-      <div className='w-full min-h-screen flex flex-col bg-gradient-to-bl from-neutral-800 to-neutral-950 text-white relative'>
-      <div className=''>
+      <div className='w-full min-h-screen flex flex-col bg-gradient-to-bl from-slate-900 to-slate-950 text-white relative'>
         
       <nav className='p-2 md:p-5 md:px-16 md:flex w-full justify-between z-50'>
           <h1 className='ssm:mb-5 md:m-0 text-center md:text-start text-3xl font-bold'>Logo.</h1>
@@ -93,8 +91,9 @@ export function Home(){
           </div>
 
         </nav>
-        <Artistas artistas={artists}/>
-      </div>
+        <div className='mt-5'>
+          <Artistas artistas={artists} pesquisa={pesq}/>
+        </div>
 
       
 
