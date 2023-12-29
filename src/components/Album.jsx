@@ -57,10 +57,10 @@ export function Album(){
       {error ? <div className='text-5xl'>Erro: {error.message}</div> :(album && (
       <>
         <ColorExtractor src={album.images[1].url} getColors={addColor} />
-        <div className='bg-neutral-800 w-full h-full  text-white flex flex-col p-5'>
-          <div style={{ backgroundImage: `linear-gradient(to top, #232323, ${color})` }} className='shadow-envolve-xl flex align-bottom justify-between position-relative gap-5 pb-10 p-5'>
-              <div className='md:flex items-end gap-10'>
-                <img className='shadow-envolve-xl' src={album.images[1].url} alt={album.name}/>
+        <div className='bg-neutral-800 w-full h-full  text-white flex flex-col p-5 transition-all'>
+          <div style={{ backgroundImage: `linear-gradient(to top, #232323, ${color})` }} className='shadow-envolve-xl flex align-bottom justify-between position-relative gap-5 pb-10 p-5 transition-all'>
+              <div className='md:flex items-end gap-10 transition-all'>
+                <img className='shadow-envolve-xl transition-all' src={album.images[1].url} alt={album.name}/>
                 <div>
                   <h1 className={`text-xl sm:text-2xl font-bold text-[${color}]`}>Album</h1>
                   <h1 className='text-3xl sm:text-7xl font-bold mb-3'>{album.name}</h1>

@@ -62,8 +62,8 @@ export function ArtistaAlbuns() {
 
   return (
     <>
-      <div className="justify-center p-10 w-full bg-neutral-800 min-h-screen text-white">
-        <h1 style={{overflowWrap: "break-word"}} className="text-6xl font-bold text-center w-full overflow-">Albuns de {artista}</h1>
+      <div className="justify-center p-10 w-full bg-neutral-800 min-h-screen text-white transition-all">
+        <h1 style={{overflowWrap: "break-word"}} className="text-6xl font-bold text-center w-full overflow- transition-all">Albuns de {artista}</h1>
         <Albuns albuns={albuns} />
       </div>
     </>
