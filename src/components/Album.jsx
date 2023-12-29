@@ -72,10 +72,11 @@ export function Album(){
                   </div>
                 </div>
               </div>
-              <div className='flex h-full'>
+              <div className='flex flex-col justify-between h-100'>
                 <Link to={album.external_urls.spotify}>
-                  <i className="text-3xl sm:text-5xl fa-brands fa-spotify cursor-pointer hover:scale-110 transition"></i>
+                  <i className="text-3xl sm:text-5xl fa-brands fa-spotify cursor-pointer hover:scale-110 transition hover:brightness-90"></i>
                 </Link>
+                <i className="text-3xl fa-solid fa-pen-to-square p-2 sm:p-3 rounded-sm hover:brightness-90 cursor-pointer"></i>
               </div>
             </div>
             <Faixas album={album} color={color}/>

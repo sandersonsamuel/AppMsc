@@ -27,7 +27,7 @@ export function Faixas({album, color}){
             </div>
             <h1 className="text-white text-xl">{msToMin(msc.duration_ms)}</h1>
           </div>
-          <i style={{background: color}} className="fa-solid fa-pen-to-square p-2 sm:p-3 rounded-sm hover:brightness-75 cursor-pointer"></i>
+          <i style={{background: color}} className="bg-gradient-to-r fa-solid fa-plus p-2 sm:p-3 rounded-sm hover:brightness-75 cursor-pointer"></i>
           </div>
         ))
       }
