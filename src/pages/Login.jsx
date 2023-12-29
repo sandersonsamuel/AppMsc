@@ -65,7 +65,9 @@ export function Login(){
           <a onClick={logOut} href="/Login" className="text-center text-blue-600 cursor-pointer">
             Não tenho uma conta
           </a>
+          <p className="text-center text-red-500">* por enquanto apenas Login pelo google </p>
         </form>
+        
       </div>
     </>
   )
