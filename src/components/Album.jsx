@@ -56,8 +56,8 @@ export function Album(){
       {error ? <div className='text-5xl'>Erro: {error.message}</div> :(album && (
       <>
         <ColorExtractor src={album.images[1].url} getColors={addColor} />
-        <div className='bg-neutral-800 w-full h-full  text-white flex flex-col p-5 transition-all'>
-          <div style={{backgroundImage: `linear-gradient(to top, #232323, ${color})`}} className='shadow-envolve-xl flex align-bottom justify-between position-relative gap-5 pb-10 p-5 transition-all'>
+        <div className='bg-neutral-800 w-full h-full  text-white flex flex-col p-3 md:p-5 transition-all'>
+          <div style={{backgroundImage: `linear-gradient(to top, #232323, ${color})`}} className='shadow-envolve-xl flex align-bottom justify-between position-relative gap-5 pb-10 p-5 transition-all w-full'>
               <div className='md:flex items-end gap-10 transition-all'>
                 <img className='shadow-envolve-xl transition-all cursor-pointer hover:scale-105 w-60' src={album.images[1].url} alt={album.name}/>
                 <div>
@@ -72,11 +72,11 @@ export function Album(){
                   </div>
                 </div>
               </div>
-              <div className='flex flex-col justify-between h-100'>
+              <div className='flex flex-col justify-between h-100 items-center'>
                 <Link to={album.external_urls.spotify}>
                   <i className="text-3xl sm:text-5xl fa-brands fa-spotify cursor-pointer hover:scale-110 transition hover:brightness-90"></i>
                 </Link>
-                <i className="text-3xl fa-solid fa-pen-to-square p-2 sm:p-3 rounded-sm hover:brightness-90 cursor-pointer"></i>
+                <i className="text-2xl md:text-3xl fa-solid fa-pen-to-square p-2 sm:p-3 rounded-sm hover:brightness-90 cursor-pointer"></i>
               </div>
             </div>
             <Faixas album={album} color={color}/>

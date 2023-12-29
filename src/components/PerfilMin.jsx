@@ -12,7 +12,7 @@ export function PerfilMin(){
 
   return(
     <>
-      <div className="flex gap-3 justify-center items-center bg-neutral-700 p-3 rounded-md transition-all">
+      <div className="flex gap-3 justify-center items-center bg-neutral-700 p-3 md:rounded-md transition-all">
         <div className="">
         <h1 className="hidden lg:block text-xl cursor-pointer">{userName[0]}</h1>
         </div>
