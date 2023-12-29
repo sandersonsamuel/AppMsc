@@ -1,4 +1,4 @@
-import { Explict } from "../components/Explict"
+import { Explict } from "./Explict"
 
 export function Faixas({album, color}){
 
