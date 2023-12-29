@@ -59,7 +59,7 @@ export function Album(){
         <div className='bg-neutral-800 w-full h-full  text-white flex flex-col p-3 md:p-5 transition-all'>
           <div style={{backgroundImage: `linear-gradient(to top, #232323, ${color})`}} className='shadow-envolve-xl flex align-bottom justify-between position-relative gap-5 pb-10 p-5 transition-all w-full'>
               <div className='md:flex items-end gap-10 transition-all'>
-                <img className='shadow-envolve-xl transition-all cursor-pointer hover:scale-105 w-60' src={album.images[1].url} alt={album.name}/>
+                <img className='shadow-envolve-xl transition-all cursor-pointer hover:scale-105 w-60' src={album.images[0].url} alt={album.name}/>
                 <div>
                   <h1 className={`text-md sm:text-2xl font-bold text-[${color}]`}>Album</h1>
                   <h1 className='text-3xl sm:text-7xl font-bold mb-3'>{album.name}</h1>
