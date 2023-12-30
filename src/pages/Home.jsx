@@ -1,104 +1,44 @@
-import { useState, useEffect } from 'react';
-import '../App.css'
-import { PerfilMin } from '../components/PerfilMin';
-import { CLIENT_ID } from '../configs/SpotifyConfigs';
-import { CLIENT_SECRET } from '../configs/SpotifyConfigs';
-import { Artistas } from '../components/Artistas';
+import { NavBar } from "../components/NavBar";
+import { AlbumGirando } from "../components/AlbumGirando";
+import { useState, useEffect } from "react"
+import Typewriter from 'typewriter-effect';
 
 export function Home(){
 
-  const [pesq, setPesq] = useState("")
-  const [albuns, setAlbuns] = useState([])
-  const [artists, setArtists] = useState("")
-  const [accessToken, setAccessToken] = useState("")
-
-  useEffect(()=>{
-    const ultimaPesq = sessionStorage.getItem('ultimaPesq')
-    if (ultimaPesq){
-      setPesq(ultimaPesq)
-    }
-  },[])
-
-
-  useEffect(() => {
-
-    var authParameters = {
-      method : 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
-    }
-    fetch('https://accounts.spotify.com/api/token', authParameters)
-    .then(Result => Result.json())
-    .then(data => setAccessToken(data.access_token))
-
-
-    
-  }, [])
-
-  async function procurar(event){
-
-    sessionStorage.setItem('ultimaPesq', pesq);
-
-    event.preventDefault()
-
-    var artistParameters = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'aplication/json',
-        'Authorization': 'Bearer ' + accessToken
-      }
-    }
-
-    var artistID = await fetch('https://api.spotify.com/v1/search?q=' + pesq + '&type=artist', artistParameters)
-    .then(response => response.json())
-    .then(data => {
-      setArtists(data.artists.items)
-    })
-  }
-
   return(
     <>
-      <div className='w-full min-h-screen flex flex-col bg-gradient-to-bl from-slate-900 to-slate-950 text-white relative'>
-        
-      <nav className='p-2 md:p-5 md:px-16 md:flex w-full justify-between z-50'>
-          <h1 className='ssm:mb-5 md:m-0 text-center md:text-start text-3xl font-bold'>Logo.</h1>
-          <div className='md:hidden mb-5'>
-            <PerfilMin/>
-          </div>
-          <form onSubmit={procurar} className='flex w-full justify-center items-center'>
+      <div className="bg-gradient-to-bl from-slate-900 to-slate-950 w-full min-h-screen text-white pb-20">
 
-            <input 
-              type="text" 
-              className='rounded-l-lg p-2 text-black outline-none px-4 w-32 ssm:w-40 sm:w-96'
-              value={pesq}
-              placeholder='Artista'
-              onChange={(event)=> setPesq(event.target.value)}
-              
-              />
-            <button className='bg-purple-900 p-2 px-4 rounded-r-lg hover:bg-purple-950'><i className="fa-solid fa-magnifying-glass"></i></button>
+        <NavBar/>
+        <AlbumGirando/>
 
-            <i onClick={()=>{
-              setArtists([])
-              sessionStorage.removeItem("ultimaPesq")
-            }} className="fa-solid fa-x m-0 text-sm md:text-xl cursor-pointer hover:scale-125 transition text-red-600 ml-2 md:ml-5"></i>
-            
-          </form>
+        <p className="text-3xl md:text-5xl text-center font-thin">Avalie os albuns que você ouviu</p>
+        <p className="text-2xl md:text-5xl text-center font-bold mt-20">Busque por Albuns ou Artistas</p>
 
-          <div className='hidden md:flex'>
-            <PerfilMin/>
-          </div>
-
-        </nav>
-        <div className='mt-5'>
-          <Artistas artistas={artists} pesquisa={pesq}/>
+        <div className="text-2xl md:text-5xl text-center font-semibold mt-5">
+          <Typewriter
+          options={{
+            strings: ['Kendrick Lamar', 'To Pimp a Butterfly'],
+            autoStart: true,
+            loop: true,
+          }}
+          />
         </div>
 
-      
+        <div className="w-full flex items-center flex-col">
+          <div className="bg-slate-800 p-5 flex items-center gap-5 m-5 mt-10">
+            <div>
+              <img className="w-64" title="Kendrick Lamar" src={"https://blackmusicscholar.com/wp-content/uploads/2017/11/19955250_2359106054314953_8557416230665846784_n.jpg"} alt="" />
+              <h1 className="text-2xl text-center font-semibold">Artista</h1>
+            </div>
+            <div>
+              <img className="w-64" title="To Pimp a Butterfly" src={"https://upload.wikimedia.org/wikipedia/pt/c/c9/To_Pimp_a_Butterfly.jpg"} alt="" />
+              <h1 className="text-2xl text-center font-semibold">Album</h1>
+            </div>
+          </div>
+        </div>
 
       </div>
     </>
-    
   )
 }
