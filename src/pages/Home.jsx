@@ -2,6 +2,8 @@ import { NavBar } from "../components/NavBar";
 import { AlbumGirando } from "../components/AlbumGirando";
 import { useState, useEffect } from "react"
 import Typewriter from 'typewriter-effect';
+import { AppRating } from "../components/Rating";
+import TextField from '@mui/material/TextField';
 
 export function Home(){
 
@@ -36,6 +38,11 @@ export function Home(){
               <h1 className="font-thin md:text-2xl text-center md:font-semibold">Album</h1>
             </div>
           </div>
+        </div>
+
+        <div className="w-full flex-col flex items-center">
+            <AppRating/>
+            <button className="bg-blue-800 font-bold md:text-lg rounded-md p-3 mt-3">Avalie Agora</button>
         </div>
 
       </div>
