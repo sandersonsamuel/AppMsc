@@ -5,7 +5,7 @@ import { CLIENT_ID } from '../configs/SpotifyConfigs';
 import { CLIENT_SECRET } from '../configs/SpotifyConfigs';
 import { Artistas } from '../components/Artistas';
 
-export function Home(){
+export function Pesquisa(){
 
   const [pesq, setPesq] = useState("")
   const [albuns, setAlbuns] = useState([])

@@ -3,6 +3,7 @@ import { Home } from "./pages/Home"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Album } from "./components/Album"
 import { ArtistaAlbuns } from "./components/ArtistaAlbuns"
+import {Pesquisa} from './pages/Pesquisa'
 
 export function AppRoutes(){
 
@@ -10,6 +11,7 @@ export function AppRoutes(){
     <Router>
       <Routes>
         <Route path="/" element={<Home/>}/>
+        <Route path="/pesquisa" element={<Pesquisa/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/album/:id" element={<Album/>}/>
         <Route path="artista/albuns/:id" element={<ArtistaAlbuns/>}/>
