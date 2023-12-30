@@ -21,8 +21,8 @@ export function Login(){
   return(
     <>
       <div className="w-screen h-screen bg-gradient-to-tr from-slate-900 to-slate-950 text-white justify-center flex md:flex-row flex-col items-center p-2 sm:p-5 md:p-10 sm:gap-10">
-        <div className="flex gap-4 flex-col w-1/2">
-          <h2 className="md:text-8xl font-bold text-center md:text-start text-4xl">App Music</h2>
+        <div className="flex gap-4 flex-col md:w-1/2">
+          <h2 className="text-4xl w-full md:text-8xl font-bold text-center md:text-start">MelodyMingler</h2>
           <h1 className="hidden md:block text-2xl">Conecte-se conosco, explore o universo da música através das avaliações e interaja com amigos. Entre agora e faça parte da nossa comunidade musical!</h1>
         </div>
         <form className="h-4/5 w-full sm:w-[27rem] sm:bg-neutral-950 rounded-xl p-5 sm:p-10 flex flex-col gap-4 justify-center">

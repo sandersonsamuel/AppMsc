@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function NavBar(){
 
   return(
@@ -5,7 +7,7 @@ export function NavBar(){
       <nav className="p-3 md:p-7 md:px-16 flex flex-col md:flex-row items-center justify-evenly">
         <h1 className="text-2xl font-bold">MelodyMingler.</h1>
         <ul className="flex md:gap-5 gap-2 m-5 md:m-0 w-full md:w-auto justify-center">
-          <li className="cursor-pointer text-[0.9rem] md:text-lg font-bold hover:opacity-70" >Login</li>
+          <li className="cursor-pointer text-[0.9rem] md:text-lg font-bold hover:opacity-70" ><Link to={'/login'}>Login</Link></li>
           <li className="cursor-pointer text-[0.9rem] md:text-lg font-bold hover:opacity-70" >Criar Conta</li>
           <li className="cursor-pointer text-[0.9rem] md:text-lg font-bold hover:opacity-70" >Albuns mais Avaliados</li>
         </ul>

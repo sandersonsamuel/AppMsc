@@ -1,15 +1,14 @@
 import { NavBar } from "../components/NavBar";
 import { AlbumGirando } from "../components/AlbumGirando";
-import { useState, useEffect } from "react"
 import Typewriter from 'typewriter-effect';
 import { AppRating } from "../components/Rating";
-import TextField from '@mui/material/TextField';
+import { Link } from "react-router-dom";
 
 export function Home(){
 
   return(
     <>
-      <div className="bg-gradient-to-bl from-slate-900 to-slate-950 w-full min-h-screen text-white pb-20">
+      <div className="bg-gradient-to-bl from-slate-900 to-slate-950 w-full min-h-screen text-white pb-10">
 
         <NavBar/>
         <AlbumGirando/>
@@ -42,7 +41,9 @@ export function Home(){
 
         <div className="w-full flex-col flex items-center">
             <AppRating/>
-            <button className="bg-blue-800 font-bold md:text-lg rounded-md p-3 mt-3">Avalie Agora</button>
+            <Link to={'/login'}>
+              <button className="bg-blue-800 font-bold md:text-lg rounded-md p-3 mt-3 hover:opacity-75">Avalie Agora</button>
+            </Link>
         </div>
 
       </div>
