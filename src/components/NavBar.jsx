@@ -2,12 +2,12 @@ export function NavBar(){
 
   return(
     <>
-      <nav className="p-7 md:px-16 flex flex-col md:flex-row items-center justify-evenly">
+      <nav className="p-3 md:p-7 md:px-16 flex flex-col md:flex-row items-center justify-evenly">
         <h1 className="text-2xl font-bold">MelodyMingler.</h1>
-        <ul className="flex md:gap-5 gap-2 m-5 md:m-0">
-          <li className="cursor-pointer text-[0.7rem] md:text-lg font-bold hover:opacity-70" >Login</li>
-          <li className="cursor-pointer text-[0.7rem] md:text-lg font-bold hover:opacity-70" >Criar Conta</li>
-          <li className="cursor-pointer text-[0.7rem] md:text-lg font-bold hover:opacity-70" >Albuns mais Avaliados</li>
+        <ul className="flex md:gap-5 gap-2 m-5 md:m-0 w-full md:w-auto justify-center">
+          <li className="cursor-pointer text-[0.9rem] md:text-lg font-bold hover:opacity-70" >Login</li>
+          <li className="cursor-pointer text-[0.9rem] md:text-lg font-bold hover:opacity-70" >Criar Conta</li>
+          <li className="cursor-pointer text-[0.9rem] md:text-lg font-bold hover:opacity-70" >Albuns mais Avaliados</li>
         </ul>
 
         <div className="flex items-center gap-2">
