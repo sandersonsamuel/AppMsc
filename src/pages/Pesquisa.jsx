@@ -1,27 +1,24 @@
 import { useState, useEffect } from 'react';
 import '../App.css'
-import { PerfilMin } from '../components/PerfilMin';
 import { CLIENT_ID } from '../configs/SpotifyConfigs';
 import { CLIENT_SECRET } from '../configs/SpotifyConfigs';
 import { Artistas } from '../components/Artistas';
+import { useParams } from 'react-router';
+import { NavBar } from '../components/NavBar';
+import { Albuns } from '../components/Albuns';
 
 export function Pesquisa(){
 
-  const [pesq, setPesq] = useState("")
+  const { id } = useParams()
+  const pesq = id
+
   const [albuns, setAlbuns] = useState([])
   const [artists, setArtists] = useState("")
   const [accessToken, setAccessToken] = useState("")
 
-  useEffect(()=>{
-    const ultimaPesq = sessionStorage.getItem('ultimaPesq')
-    if (ultimaPesq){
-      setPesq(ultimaPesq)
-    }
-  },[])
+  const [selectedOption, setSelectedOption] = useState("artistas");
 
-
-  useEffect(() => {
-
+  async function getToken(){
     var authParameters = {
       method : 'POST',
       headers: {
@@ -29,73 +26,112 @@ export function Pesquisa(){
       },
       body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
     }
-    fetch('https://accounts.spotify.com/api/token', authParameters)
-    .then(Result => Result.json())
-    .then(data => setAccessToken(data.access_token))
+    let response = await fetch('https://accounts.spotify.com/api/token', authParameters)
+    let data = await response.json()
+    setAccessToken(data.access_token) 
+    return data.access_token
+  }
 
-
-    
-  }, [])
-
-  async function procurar(event){
-
-    sessionStorage.setItem('ultimaPesq', pesq);
-
-    event.preventDefault()
+  function getArtista(token){
 
     var artistParameters = {
       method: 'GET',
       headers: {
         'Content-Type': 'aplication/json',
-        'Authorization': 'Bearer ' + accessToken
+        'Authorization': 'Bearer ' + token
       }
     }
 
-    var artistID = await fetch('https://api.spotify.com/v1/search?q=' + pesq + '&type=artist', artistParameters)
+    var artistID = fetch('https://api.spotify.com/v1/search?q=' + pesq + '&type=artist', artistParameters)
     .then(response => response.json())
     .then(data => {
       setArtists(data.artists.items)
     })
   }
 
+  function getAlbum(token){
+
+    var artistParameters = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'aplication/json',
+        'Authorization': 'Bearer ' + token
+      }
+    }
+
+    var artistID = fetch('https://api.spotify.com/v1/search?q=' + pesq + '&type=album', artistParameters)
+    .then(response => response.json())
+    .then(data => {
+      setAlbuns(data.albums.items)
+    })
+  } 
+
+  
+
+  useEffect(() => {
+
+    async function procurar(){
+      const token  =  await getToken()
+      await getArtista(token)
+      await getAlbum(token)
+    }
+
+    procurar()
+    
+  }, [pesq])
+
   return(
     <>
       <div className='w-full min-h-screen flex flex-col bg-gradient-to-bl from-slate-900 to-slate-950 text-white relative'>
-        
-      <nav className='p-2 md:p-5 md:px-16 md:flex w-full justify-between z-50'>
-          <h1 className='ssm:mb-5 md:m-0 text-center md:text-start text-3xl font-bold'>Logo.</h1>
-          <div className='md:hidden mb-5'>
-            <PerfilMin/>
-          </div>
-          <form onSubmit={procurar} className='flex w-full justify-center items-center'>
 
+        <NavBar isLog={true}/>
+
+        <div className='w-full flex justify-center gap-5 text-xl'>
+
+          <div>
             <input 
-              type="text" 
-              className='rounded-l-lg p-2 text-black outline-none px-4 w-32 ssm:w-40 sm:w-96'
-              value={pesq}
-              placeholder='Artista'
-              onChange={(event)=> setPesq(event.target.value)}
-              
-              />
-            <button className='bg-purple-900 p-2 px-4 rounded-r-lg hover:bg-purple-950'><i className="fa-solid fa-magnifying-glass"></i></button>
-
-            <i onClick={()=>{
-              setArtists([])
-              sessionStorage.removeItem("ultimaPesq")
-            }} className="fa-solid fa-x m-0 text-sm md:text-xl cursor-pointer hover:scale-125 transition text-red-600 ml-2 md:ml-5"></i>
+              className='hidden' 
+              type="radio" 
+              id="artistas" 
+              checked={selectedOption === "artistas"} 
+              onChange={() => setSelectedOption("artistas")}
+            />
+            <label 
+              className='cursor-pointer'
+              htmlFor="artistas"
+              style={{textDecoration: selectedOption === 'artistas' ? 'underline' : 'none'}}
             
-          </form>
-
-          <div className='hidden md:flex'>
-            <PerfilMin/>
+            >Artistas</label>
           </div>
 
-        </nav>
-        <div className='mt-5'>
-          <Artistas artistas={artists} pesquisa={pesq}/>
+          <div>
+            <input
+              className='hidden' 
+              type="radio" 
+              id="Album" 
+              checked={selectedOption === "Album"} 
+              onChange={() => setSelectedOption("Album")}
+            />
+            <label 
+              className='cursor-pointer'
+              htmlFor="Album"
+              style={{textDecoration: selectedOption === 'Album' ? 'underline' : 'none'}}
+              >Album</label>
+          </div>
+          
         </div>
 
-      
+        <div className='text-center'>
+          <h1 className='text-2xl mt-5'>Resultados para {pesq}:</h1>
+        </div>
+
+        <div className='mt-5'>
+          {selectedOption === "artistas" ? (
+            <Artistas artistas={artists} pesquisa={pesq}/>
+          ) : (
+            <Albuns albuns={albuns}/>
+          )}
+        </div>
 
       </div>
     </>

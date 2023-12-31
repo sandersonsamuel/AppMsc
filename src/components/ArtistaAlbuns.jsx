@@ -8,7 +8,7 @@ export function ArtistaAlbuns() {
   const { id } = useParams();
   const artistaId = id;
 
-  const [albuns, setAlbuns] = useState(null);
+  const [albuns, setAlbuns] = useState([])
   const [artista, setArtista] = useState(null);
   const [InfoArtista, setInfoArtista] = useState(null);
   const [isLoading, setIsLoading] = useState(false)
@@ -70,6 +70,14 @@ export function ArtistaAlbuns() {
       <div className='w-screen h-screen flex justify-center items-center bg-neutral-800'>
         <SyncLoader size={30} color="#364ed6" />
       </div>
+    )
+  }else if(albuns.length === 0){
+    return(
+      <>
+        <div className="justify-center p-2 md:p-10 w-full bg-gradient-to-bl from-slate-900 to-slate-950 min-h-screen text-white transition-all flex flex-col gap-5">
+          <h1 style={{overflowWrap: "break-word"}} className="text-6xl font-bold text-center w-full overflow- transition-all">{artista} não possui albuns</h1>
+        </div>
+      </>
     )
   }else{
     return (

@@ -1,14 +1,18 @@
-import { useState } from "react"
-import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword} from "firebase/auth"
+import { useEffect, useState } from "react"
+import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signOut, updateProfile } from "firebase/auth"
 import { auth } from "../configs/firebase"
 import { Link, Navigate } from "react-router-dom"
+import { Login } from "./Login"
 
-export function Login(){
+export function CriarConta(){
 
+  const [userName, setUserName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [logged, setLogged] = useState(null)
   const [erro, setErro] = useState(null)
+  const [logged, setLogged] = useState(null)
+
+  const provider = new GoogleAuthProvider()
 
   if (logged){
 
@@ -17,29 +21,39 @@ export function Login(){
     )
   }
 
-  const provider = new GoogleAuthProvider()
-
-  function login(event){
-
-    event.preventDefault()
-
-    signInWithEmailAndPassword(auth, email, password).then((response)=>{
-      setLogged(true)
-    }).catch((error)=>{
-      console.log(error)
-      if (error.message === 'Firebase: Error (auth/invalid-credential).'){
-        setErro("Email ou senha incorretos")
-      }
-    })
-  }
-
   function sigInGoogle(){
     signInWithPopup(auth, provider).then(result=>{
       setLogged(true)
-    }).catch(error=> {
-      console.log(error)
-      
-    })
+    }).catch(error=> console.log(error))
+  }
+
+  async function CreatAccount(event){
+    event.preventDefault()
+
+    if (password.length < 6){
+      setErro("A senha deve conter pelo menos 6 caracteres")
+    }
+    else{
+      createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential)=>{
+        const user = userCredential.user
+
+        setLogged(true)
+        setEmail('')
+        setUserName('')
+        setPassword('')
+
+        updateProfile(user, { displayName: userName })
+        console.log(user)
+        
+      }).catch((error)=>{
+        console.log('não foi possivel criar a conta ' + error)
+        if(error.message === 'Firebase: Error (auth/email-already-in-use).'){
+          setErro("Já possui uma conta cadastrada nesse Email.")
+        }
+      })
+    }
+
   }
 
   return(
@@ -49,16 +63,25 @@ export function Login(){
           <h2 className="text-4xl w-full md:text-8xl font-bold text-center md:text-start">MelodyMingler</h2>
           <h1 className="hidden md:block text-2xl">Conecte-se conosco, explore o universo da música através das avaliações e interaja com amigos. Entre agora e faça parte da nossa comunidade musical!</h1>
         </div>
-        <form onSubmit={login} className="h-4/5 w-full sm:w-[27rem] sm:bg-neutral-950 rounded-xl p-5 sm:p-10 flex flex-col gap-4 justify-center">
+        <form onSubmit={CreatAccount} className="min-h-4/5 w-full sm:w-[27rem] sm:bg-neutral-950 rounded-xl p-5 sm:p-10 flex flex-col gap-4 justify-center">
 
-          
-          <h1 className="text-5xl text-center font-semibold mb-5">Login</h1>
+          <h1 className="text-5xl text-center font-semibold mb-5">Criar Conta</h1>
+
+          <input
+            type="text"
+            className="w-full h-12 outline-none border-2 border-slate-300 rounded-md p-5 bg-transparent"
+            placeholder="Usuário"
+            onChange={event=> setUserName(event.target.value)}
+            value={userName}
+            required
+          />
 
           <input
             type="email"
             className="w-full h-12 outline-none border-2 border-slate-300 rounded-md p-5 bg-transparent"
             placeholder="Email"
             onChange={event=> setEmail(event.target.value)}
+            value={email}
             required
           />
 
@@ -67,6 +90,7 @@ export function Login(){
             className="w-full h-12 outline-none border-2 border-slate-300 rounded-md p-5 bg-transparent"
             placeholder="Senha"
             onChange={event=> setPassword(event.target.value)}
+            value={password}
             required
           />
 
@@ -74,7 +98,7 @@ export function Login(){
             type="submit"
             className="w-full bg-neutral-800 h-12 rounded-md text-white cursor-pointer hover:bg-gradient-to-r 
             hover:outline outline-2 outline-blue-900 shadow-2xl hover:shadow-slate-900 transition-shadow"
-            value={"Entrar"}
+            value={"Criar Conta"}
           />
 
           <button
@@ -85,8 +109,8 @@ export function Login(){
             <p>Entre com o Google</p>
           </button>
 
-          <Link to={'/criarconta'} className="text-center text-blue-600 cursor-pointer">
-            Não tenho uma conta
+          <Link to={'/login'} className="text-center text-blue-600 cursor-pointer">
+            Já tenho uma Conta
           </Link>
           <p className="text-center text-red-500">{erro}</p>
         </form>
