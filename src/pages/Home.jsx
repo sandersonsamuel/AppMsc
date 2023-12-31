@@ -58,10 +58,10 @@ export function Home(){
 
         <div className="w-full flex-col flex items-center">
             <AppRating/>
-            {!user && <Link to={'/login'}>
+            <Link to={!user ? '/login' : '/pesquisa/kendrick lamar'}>
               <button className="bg-blue-800 font-bold md:text-lg rounded-md p-3 mt-3 hover:opacity-75">Avalie Agora</button>
-            </Link>}
-            {user && <h1 className="text-3xl m-3">Faça sua pesquisa e avalie!</h1>}
+            </Link>
+            
         </div>
 
       </div>
