@@ -7,14 +7,14 @@ import {Pesquisa} from './pages/Pesquisa'
 import { CriarConta } from "./pages/CriarConta"
 import { auth } from "./configs/firebase"
 import { onAuthStateChanged } from "@firebase/auth"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { LoggedArea } from "./pages/LoggedArea"
 
 export function AppRoutes(){
 
   const [user, setUser] = useState(null)
 
-  useState(()=>{
+  useEffect(()=>{
     onAuthStateChanged(auth, (user)=>{
       if (user){
         setUser(user)

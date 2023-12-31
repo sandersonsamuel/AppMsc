@@ -3,8 +3,25 @@ import { AlbumGirando } from "../components/AlbumGirando";
 import Typewriter from 'typewriter-effect';
 import { AppRating } from "../components/Rating";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { onAuthStateChanged } from "@firebase/auth";
+import { auth } from "../configs/firebase";
 
 export function Home(){
+
+  const [user, setUser] = useState(null)
+
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user)=>{
+      if (user){
+        setUser(user)
+      }else{
+        return null
+      }
+    })
+  },[])
+  
+  console.log(user);
 
   return(
     <>
@@ -41,9 +58,10 @@ export function Home(){
 
         <div className="w-full flex-col flex items-center">
             <AppRating/>
-            <Link to={'/login'}>
+            {!user && <Link to={'/login'}>
               <button className="bg-blue-800 font-bold md:text-lg rounded-md p-3 mt-3 hover:opacity-75">Avalie Agora</button>
-            </Link>
+            </Link>}
+            {user && <h1 className="text-3xl m-3">Faça sua pesquisa e avalie!</h1>}
         </div>
 
       </div>
