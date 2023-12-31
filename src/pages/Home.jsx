@@ -20,14 +20,10 @@ export function Home(){
       }
     })
   },[])
-  
-  console.log(user);
 
   return(
     <>
-      <div className="bg-gradient-to-bl from-slate-900 to-slate-950 w-full min-h-screen text-white pb-10">
-
-        <NavBar/>
+      <div className="py-5 bg-gradient-to-bl from-slate-900 to-slate-950 w-full min-h-screen text-white pb-16">
         <AlbumGirando/>
 
         <p className="text-3xl md:text-5xl text-center font-thin m-3">Compartilhe a sua crítica sobre os discos que escutou.</p>
@@ -57,11 +53,9 @@ export function Home(){
         </div>
 
         <div className="w-full flex-col flex items-center">
-            <AppRating/>
             <Link to={!user ? '/login' : '/pesquisa/kendrick lamar'}>
               <button className="bg-blue-800 font-bold md:text-lg rounded-md p-3 mt-3 hover:opacity-75">Avalie Agora</button>
             </Link>
-            
         </div>
 
       </div>

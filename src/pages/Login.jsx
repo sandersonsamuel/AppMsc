@@ -44,7 +44,7 @@ export function Login(){
 
   return(
     <>
-      <div className="w-screen h-screen bg-gradient-to-tr from-slate-900 to-slate-950 text-white justify-center flex md:flex-row flex-col items-center p-2 sm:p-5 md:p-10 sm:gap-10">
+      <div className="w-full h-screen bg-gradient-to-tr from-slate-900 to-slate-950 text-white justify-center flex md:flex-row flex-col items-center p-2 sm:p-5 md:p-10 sm:gap-10">
         <div className="flex gap-4 flex-col md:w-1/2">
           <h2 className="text-4xl w-full md:text-8xl font-bold text-center md:text-start">MelodyMingler</h2>
           <h1 className="hidden md:block text-2xl">Conecte-se conosco, explore o universo da música através das avaliações e interaja com amigos. Entre agora e faça parte da nossa comunidade musical!</h1>

@@ -9,6 +9,7 @@ import { auth } from "./configs/firebase"
 import { onAuthStateChanged } from "@firebase/auth"
 import { useEffect, useState } from "react"
 import { LoggedArea } from "./pages/LoggedArea"
+import { NavBar } from "./components/NavBar"
 
 export function AppRoutes(){
 
@@ -26,6 +27,7 @@ export function AppRoutes(){
 
   return(
     <Router>
+      <NavBar/>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/pesquisa/:id" element={<Pesquisa/>}/>

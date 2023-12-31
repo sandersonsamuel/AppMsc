@@ -32,7 +32,7 @@ export function NavBar(){
 
   return(
     <>
-      <nav className="p-3 md:p-5 lg:px-16 flex flex-col md:flex-row items-center justify-evenly">
+      <nav className="bg-gradient-to-r text-white from-slate-900 to-slate-950 p-3 md:p-5 lg:px-16 flex flex-col md:flex-row items-center justify-evenly">
         <Link to={'/'}><h1 className="text-2xl font-bold">MelodyMingler.</h1></Link>
 
         <div className="md:hidden mt-3">

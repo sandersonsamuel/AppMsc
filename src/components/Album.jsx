@@ -3,6 +3,8 @@ import { CLIENT_SECRET, CLIENT_ID  } from '../configs/SpotifyConfigs'
 import { useState, useEffect } from 'react'
 import { Faixas } from './Faixas'
 import { ColorExtractor } from 'react-color-extractor'
+import { ModalAva } from './ModalAva'
+
 
 export function Album(){
 
@@ -56,7 +58,7 @@ export function Album(){
       {error ? <div className='text-5xl'>Erro: {error.message}</div> :(album && (
       <>
         <ColorExtractor src={album.images[1].url} getColors={addColor} />
-        <div className='bg-gradient-to-bl from-slate-900 to-slate-950 w-full h-full  text-white flex flex-col p-3 md:p-5 transition-all'>
+        <div className='bg-gradient-to-bl from-slate-900 to-slate-950 w-full min-h-screen  text-white flex flex-col p-3 md:p-5 transition-all'>
           <div style={{background: `${color}`}} className="flex align-bottom justify-between position-relative gap-5 pb-10 p-5 transition-all w-full">
               <div className='md:flex items-end gap-10 transition-all'>
                 <img className='shadow-envolve-xl transition-all cursor-pointer hover:scale-105 w-60' src={album.images[0].url} alt={album.name}/>
@@ -76,7 +78,7 @@ export function Album(){
                 <Link to={album.external_urls.spotify}>
                   <i className="text-3xl sm:text-5xl fa-brands fa-spotify cursor-pointer hover:scale-110 transition hover:brightness-90"></i>
                 </Link>
-                <i className="text-2xl md:text-3xl fa-solid fa-pen-to-square p-2 sm:p-3 rounded-sm hover:brightness-90 cursor-pointer"></i>
+                <ModalAva/>
               </div>
           </div>
             <Faixas album={album} color={color}/>

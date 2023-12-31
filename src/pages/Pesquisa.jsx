@@ -16,7 +16,7 @@ export function Pesquisa(){
   const [artists, setArtists] = useState("")
   const [accessToken, setAccessToken] = useState("")
 
-  const [selectedOption, setSelectedOption] = useState("artistas");
+  const [selectedOption, setSelectedOption] = useState("album");
 
   async function getToken(){
     var authParameters = {
@@ -82,11 +82,24 @@ export function Pesquisa(){
 
   return(
     <>
-      <div className='w-full min-h-screen flex flex-col bg-gradient-to-bl from-slate-900 to-slate-950 text-white relative'>
-
-        <NavBar isLog={true}/>
+      <div className='py-5 w-full min-h-screen flex flex-col bg-gradient-to-bl from-slate-900 to-slate-950 text-white relative'>
 
         <div className='w-full flex justify-center gap-5 text-xl'>
+
+        <div>
+            <input
+              className='hidden' 
+              type="radio" 
+              id="Album" 
+              checked={selectedOption === "Album"} 
+              onChange={() => setSelectedOption("Album")}
+            />
+            <label 
+              className='cursor-pointer'
+              htmlFor="Album"
+              style={{textDecoration: selectedOption === 'Album' ? 'underline' : 'none'}}
+              >Album</label>
+          </div>
 
           <div>
             <input 
@@ -102,21 +115,6 @@ export function Pesquisa(){
               style={{textDecoration: selectedOption === 'artistas' ? 'underline' : 'none'}}
             
             >Artistas</label>
-          </div>
-
-          <div>
-            <input
-              className='hidden' 
-              type="radio" 
-              id="Album" 
-              checked={selectedOption === "Album"} 
-              onChange={() => setSelectedOption("Album")}
-            />
-            <label 
-              className='cursor-pointer'
-              htmlFor="Album"
-              style={{textDecoration: selectedOption === 'Album' ? 'underline' : 'none'}}
-              >Album</label>
           </div>
           
         </div>

@@ -67,7 +67,7 @@ export function ArtistaAlbuns() {
   if(isLoading){
 
     return (
-      <div className='w-screen h-screen flex justify-center items-center bg-neutral-800'>
+      <div className='w-full h-screen flex justify-center items-center bg-neutral-800'>
         <SyncLoader size={30} color="#364ed6" />
       </div>
     )
