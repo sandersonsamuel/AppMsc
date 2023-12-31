@@ -58,7 +58,7 @@ export function Album(){
       {error ? <div className='text-5xl'>Erro: {error.message}</div> :(album && (
       <>
         <ColorExtractor src={album.images[1].url} getColors={addColor} />
-        <div className='bg-gradient-to-bl from-slate-900 to-slate-950 w-full min-h-screen  text-white flex flex-col p-3 md:p-5 transition-all'>
+        <div className='bg-gradient-to-bl from-slate-900 to-slate-950 w-full min-h-screen text-white flex flex-col p-3 md:p-5 transition-all'>
           <div style={{background: `${color}`}} className="flex align-bottom justify-between position-relative gap-5 pb-10 p-5 transition-all w-full">
               <div className='md:flex items-end gap-10 transition-all'>
                 <img className='shadow-envolve-xl transition-all cursor-pointer hover:scale-105 w-60' src={album.images[0].url} alt={album.name}/>

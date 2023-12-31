@@ -27,6 +27,7 @@ export function Faixas({album, color}){
               </div>
               <h1 className="text-white md:text-xl">{msToMin(msc.duration_ms)}</h1>
             </div>
+            <i style={{color: color}} className="fa-solid fa-circle-plus text-xl md:text-3xl hover:scale-110 transition"></i>
           </div>
         ))
       }
