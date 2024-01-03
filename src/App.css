@@ -3,3 +3,8 @@
     width: 20rem;
   }
 }
+
+.custom-modal .modal-content {
+  background-color: red !important;
+  color: red;
+}

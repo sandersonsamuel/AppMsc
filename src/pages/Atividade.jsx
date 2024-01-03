@@ -1,7 +1,7 @@
 import { NavBar } from "../components/NavBar";
 import { UltimasAva } from "../components/UltimasAva";
 
-export function LoggedArea(){
+export function Atividade(){
 
   return(
     

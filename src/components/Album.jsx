@@ -3,7 +3,7 @@ import { CLIENT_SECRET, CLIENT_ID  } from '../configs/SpotifyConfigs'
 import { useState, useEffect } from 'react'
 import { Faixas } from './Faixas'
 import { ColorExtractor } from 'react-color-extractor'
-import { ModalAva } from './ModalAva'
+import { ModalAva } from './Modals/ModalAva'
 
 
 export function Album(){
@@ -78,7 +78,7 @@ export function Album(){
                 <Link to={album.external_urls.spotify}>
                   <i className="text-3xl sm:text-5xl fa-brands fa-spotify cursor-pointer hover:scale-110 transition hover:brightness-90"></i>
                 </Link>
-                <ModalAva/>
+                <ModalAva albumInfos={album}/>
               </div>
           </div>
             <Faixas album={album} color={color}/>

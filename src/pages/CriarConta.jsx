@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signOut, updateProfile } from "firebase/auth"
-import { auth } from "../configs/firebase"
+import { auth, databaseApp} from "../configs/firebase"
 import { Link, Navigate } from "react-router-dom"
-import { Login } from "./Login"
-import { NavBar } from "../components/NavBar"
+import { collection, doc, setDoc } from "firebase/firestore"
 
 export function CriarConta(){
 
@@ -25,6 +24,7 @@ export function CriarConta(){
   function sigInGoogle(){
     signInWithPopup(auth, provider).then(result=>{
       setLogged(true)
+      criarDocumento()
     }).catch(error=> console.log(error))
   }
 
@@ -38,8 +38,10 @@ export function CriarConta(){
       createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential)=>{
         const user = userCredential.user
+        criarDocumento()
 
         setLogged(true)
+        criarDocumento()
         setEmail('')
         setUserName('')
         setPassword('')

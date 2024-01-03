@@ -4,7 +4,6 @@ import { CLIENT_ID } from '../configs/SpotifyConfigs';
 import { CLIENT_SECRET } from '../configs/SpotifyConfigs';
 import { Artistas } from '../components/Artistas';
 import { useParams } from 'react-router';
-import { NavBar } from '../components/NavBar';
 import { Albuns } from '../components/Albuns';
 
 export function Pesquisa(){
@@ -91,13 +90,12 @@ export function Pesquisa(){
               className='hidden' 
               type="radio" 
               id="Album" 
-              checked={selectedOption === "Album"} 
-              onChange={() => setSelectedOption("Album")}
+              checked={selectedOption == "album"} 
+              onChange={() => setSelectedOption("album")}
             />
             <label 
-              className='cursor-pointer'
+              className={selectedOption === "album"? 'cursor-pointer font-semibold' : 'cursor-pointer font-semibold opacity-50'}
               htmlFor="Album"
-              style={{textDecoration: selectedOption === 'Album' ? 'underline' : 'none'}}
               >Album</label>
           </div>
 
@@ -110,9 +108,8 @@ export function Pesquisa(){
               onChange={() => setSelectedOption("artistas")}
             />
             <label 
-              className='cursor-pointer'
+              className={selectedOption === "artistas"? 'cursor-pointer font-semibold' : 'cursor-pointer font-semibold opacity-50'}
               htmlFor="artistas"
-              style={{textDecoration: selectedOption === 'artistas' ? 'underline' : 'none'}}
             
             >Artistas</label>
           </div>

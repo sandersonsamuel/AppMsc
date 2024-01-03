@@ -1,7 +1,5 @@
-import { NavBar } from "../components/NavBar";
 import { AlbumGirando } from "../components/AlbumGirando";
 import Typewriter from 'typewriter-effect';
-import { AppRating } from "../components/Rating";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "@firebase/auth";
