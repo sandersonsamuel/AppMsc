@@ -4,9 +4,9 @@ import { AppRating } from "../Rating"
 import { databaseApp } from '../../configs/firebase'
 import { auth } from "../../configs/firebase"
 import { useNavigate } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore"
+import { collection, addDoc, doc, updateDoc, getDoc, setDoc } from "firebase/firestore"
 
-export const ModalRating = ({color, msc}) => {
+export const ModalRating = ({color, msc, album}) => {
 
   const [open, setOpen] = useState(false)
   const [starAva, setStarAva] = useState(null)
@@ -20,35 +20,44 @@ export const ModalRating = ({color, msc}) => {
     }
     setOpen(true)
   }
+
   const handleClose = () => setOpen(false)
 
-
-  const handleEnviar = async () =>{
+  
+  const handleEnviar = async () => {
 
     handleClose()
-
-    const db = databaseApp
-    const minhaColecao = collection(db, 'avaliacoes')
-
-    await addDoc(minhaColecao, {
-      idUser: auth.currentUser.uid,
-      
-      album: {
-        avaliacaoText: '',
-        data: '',
-        idAlbum: '',
-        nota: ''
-      },
-      musica: {
-        idAlbum: '',
-        idMusica: '',
-        nota: ''
-      }
-    });
-
-
-
+  
+    const db = databaseApp;
+    const userDoc = doc(db, 'avaliacoes', auth.currentUser.uid);
+  
+    // verificando se o usuário ja existe
+    const docSnap = await getDoc(userDoc);
+  
+    if (!docSnap.exists()) {
+      //Se o usuário não existir, crie a estrutura e bota os dads
+      await setDoc(userDoc, {
+        musicas: {
+          [`${msc.id}`]: {
+            idUser: auth.currentUser.uid,
+            idAlbum: album.id,
+            nota: rating
+          }
+        }
+      });
+    } else {
+      // Se o usuário já existir, só atualiza os dados
+      await updateDoc(userDoc, {
+        [`musicas.${msc.id}`]: {
+          idUser: auth.currentUser.uid,
+          idAlbum: album.id,
+          nota: rating
+        }
+      });
+    }
   }
+  
+  
 
   return (
     <div>

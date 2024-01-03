@@ -28,7 +28,7 @@ export function Faixas({album, color}){
               </div>
               <h1 className="text-white md:text-xl">{msToMin(msc.duration_ms)}</h1>
             </div>
-            <ModalRating color={color} msc={msc}/>
+            <ModalRating color={color} msc={msc} album={album}/>
           </div>
         ))
       }

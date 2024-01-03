@@ -35,7 +35,7 @@ export function NavBar(){
 
   return(
     <>
-      <nav className="bg-gradient-to-br text-white to-slate-900 from-slate-950 p-3 md:p-5 lg:px-10 flex flex-col-reverse md:flex-row items-center justify-between gap-2 flex-wrap">
+      <nav className="bg-gradient-to-br text-white to-slate-900 from-slate-950 p-3 md:p-5 flex flex-col-reverse md:flex-row items-center justify-between gap-2 flex-wrap">
         <div className="hidden md:block"><Link to={'/'}><h1 className="text-2xl font-bold">MelodyMingler.</h1></Link></div>
 
         <ul className="hidden lg:flex md:gap-5 gap-2 m-5 md:m-0 w-full md:w-auto justify-center">
@@ -50,7 +50,7 @@ export function NavBar(){
             id="pesqInput"
             onChange={(e)=> setPesquisa(e.target.value)}
             type="text" 
-            className="w-52 xl:w-80 h-8 rounded-2xl outline-none bg-slate-800 px-4 focus:bg-slate-700 transition-all"/>
+            className="w-52 xl:w-64 h-8 rounded-2xl outline-none bg-slate-800 px-4 focus:bg-slate-700 transition-all"/>
           <label htmlFor="pesqInput"><Link to={pesquisa.length > 0 ? `/pesquisa/${pesquisa}`: null}><i className="fa-solid fa-magnifying-glass hover:scale-110 cursor-pointer transition"></i></Link></label>
         </form>
 
