@@ -5,7 +5,6 @@ import { Faixas } from './Faixas'
 import { ColorExtractor } from 'react-color-extractor'
 import { ModalAva } from './Modals/ModalAva'
 
-
 export function Album(){
 
   const { id } = useParams()
