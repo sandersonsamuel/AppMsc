@@ -51,7 +51,7 @@ export const ModalRating = ({color, msc, album}) => {
         [`musicas.${msc.id}`]: {
           idUser: auth.currentUser.uid,
           idAlbum: album.id,
-          nota: rating,
+          nota: Number(rating),
           idMsc: msc.id
         }
       });

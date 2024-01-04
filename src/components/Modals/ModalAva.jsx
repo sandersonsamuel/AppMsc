@@ -4,7 +4,7 @@ import { Modal, Button, ModalBody, Label, Textarea } from "flowbite-react";
 import { auth } from "../../configs/firebase";
 import { useNavigate } from "react-router-dom";
 import { useRatingAlbum } from "../RatingAlbum";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { databaseApp } from "../../configs/firebase";
 
 export function ModalAva({albumInfos}){
@@ -17,6 +17,22 @@ export function ModalAva({albumInfos}){
   const [avaliacoesUser, setAvaliacoesUser] = useState(null);
   const [mscAvaliadas, setMscAvaliadas] = useState([]);
   const [pdAvaliar, setPdAvaliar] = useState(false);
+  const [totalMsc, setTotalMsc] = useState(albumInfos.tracks.items.length)
+
+  useEffect(()=>{
+    let notas = 0
+
+    if (mscAvaliadas) {
+      mscAvaliadas.map((musica)=>{
+        notas += musica.nota
+      })
+    }
+
+    notas = notas/totalMsc
+
+    setStarAva(notas.toFixed(2))
+
+  },[mscAvaliadas])
 
   useEffect(() => {
     if (mscAvaliadas.length === albumInfos.tracks.items.length){
@@ -24,10 +40,10 @@ export function ModalAva({albumInfos}){
     } else {
       setPdAvaliar(false);
     }
-  }, [mscAvaliadas, albumInfos.tracks.items.length]);
+  }, [mscAvaliadas, albumInfos.tracks.items.length])
 
   useEffect(() => {
-    let avas = [];
+    let avas = []
 
     if (avaliacoesUser) {
       Object.values(avaliacoesUser).forEach(musica => {
@@ -37,7 +53,8 @@ export function ModalAva({albumInfos}){
       });
     }
 
-    setMscAvaliadas(avas);
+    setMscAvaliadas(avas)
+
   }, [avaliacoesUser]);
 
   useEffect(() => {
@@ -69,9 +86,39 @@ export function ModalAva({albumInfos}){
   }
   const handleClose = () => setOpen(false)
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
 
     handleClose()
+
+    const db = databaseApp
+    const userDoc = doc(db, 'avaliacoes', auth.currentUser.uid);
+    
+    const docSnap = await getDoc(userDoc)
+  
+    if (!docSnap.exists()) {
+
+      await setDoc(userDoc, {
+        album: {
+          [`${albumInfos.id}`]: {
+            idUser: auth.currentUser.uid,
+            idAlbum: albumInfos.id,
+            notaAlbum: starAva,
+            avaliacao: textAva
+          }
+        }
+      });
+    } else {
+      // Se o usuário já existir, só atualiza os dados
+      await updateDoc(userDoc, {
+        [`album.${albumInfos.id}`]: {
+          idUser: auth.currentUser.uid,
+          idAlbum: albumInfos.id,
+          notaAlbum: starAva,
+          avaliacao: textAva
+        }
+      });
+    }
+
     
   }
 
@@ -83,13 +130,13 @@ export function ModalAva({albumInfos}){
           <ModalBody>
           <div className="space-y-6">
 
-              <AppRating value={3} />
+              <AppRating value={starAva} />
 
               <div className="max-w-md">
                 <div className="mb-2 block">
                   <Label htmlFor="comment" value="Sua avaliação" />
                 </div>
-                <Textarea id="comment" placeholder="Avalie aqui..." required rows={4} />
+                <Textarea onChange={(e)=> setTextAva(e.target.value)} id="comment" placeholder="Avalie aqui..." required rows={4} />
               </div>
 
             </div>

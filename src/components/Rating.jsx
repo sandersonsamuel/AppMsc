@@ -13,6 +13,7 @@ export function AppRating({value, setRating, rating}) {
         <Rating.Star filled={value >= 3}/>
         <Rating.Star filled={value >= 4}/>
         <Rating.Star filled={value >= 5}/>
+        <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">{value} de 5</p>
       </Rating>
 
     )

@@ -60,10 +60,10 @@ export function Album(){
         <div className='bg-gradient-to-bl from-slate-900 to-slate-950 w-full min-h-screen text-white flex flex-col p-3 md:p-5 transition-all'>
           <div style={{background: `${color}`}} className="flex align-bottom justify-between position-relative gap-5 pb-10 p-5 transition-all w-full">
               <div className='md:flex items-end gap-10 transition-all'>
-                <img className='shadow-envolve-xl transition-all cursor-pointer hover:scale-105 w-60' src={album.images[0].url} alt={album.name}/>
+                <img className='shadow-envolve-xl transition-all cursor-pointer hover:scale-105 max-w-36 md:max-w-52' src={album.images[1].url} alt={album.name}/>
                 <div>
                   <h1 className={`text-md sm:text-2xl font-bold text-[${color}]`}>Album</h1>
-                  <h1 className='text-3xl sm:text-7xl font-bold mb-3'>{album.name}</h1>
+                  <h1 className='text-2xl w-11/12 md:w-auto sm:text-7xl font-bold mb-3 md:text-clip break-words'>{album.name}</h1>
                   <div className='sm:flex gap-2'>
                     <h1 className='text-sm sm:text-xl font-bold'>{album.artists[0].name}</h1>
                     <p className='hidden sm:block sm:text-xl'>/</p>
