@@ -44,8 +44,7 @@ export function ArtistaAlbuns() {
 
       const data = await response.json();
       setArtista(data.name);
-      setInfoArtista(data);
-      console.log(data);
+      setInfoArtista(data)
     };
 
     const getAlbums = async (accessToken) => {
@@ -103,7 +102,7 @@ export function ArtistaAlbuns() {
                     />
 
               <div className="w-full flex flex-col justify-end">
-                <h1 className="text-4xl md:text-7xl font-bold">{artista}</h1>
+                <h1 className="text-4xl md:text-7xl font-bold my-2">{artista}</h1>
                 <h1 className="text-lg md:text-2xl font-bold">seguidores: {InfoArtista.followers.total.toLocaleString('pt-BR')}</h1>
               </div>
             </div>
