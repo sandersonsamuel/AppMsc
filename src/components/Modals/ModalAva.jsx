@@ -125,8 +125,6 @@ export function ModalAva({albumInfos, alerta}){
         }
       });
     }
-
-    
   }
 
   return(

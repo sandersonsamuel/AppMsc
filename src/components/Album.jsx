@@ -11,8 +11,6 @@ import { ReviewAlbum } from './ReviewAlbum'
 import { Alert } from 'flowbite-react'
 import { HiInformationCircle } from 'react-icons/hi'
 
-
-
 export function Alerta(){
   return(
   <Alert className='mb-5' color="failure" icon={HiInformationCircle}>
