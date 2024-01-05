@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Accordion, AccordionPanel, AccordionTitle, AccordionContent } from "flowbite-react"
 import { GetAvalAlbum } from "./GetAval"
 import { Rating, RatingStar } from "flowbite-react"
+import { Link } from "react-router-dom"
 
 export function UltimasAva(){
 
@@ -24,8 +25,11 @@ export function UltimasAva(){
             Object.values(avaliacoes).map((avaliacao, key)=>(
               <AccordionPanel key={key}>
                 <Accordion.Title>
-                  <div className="flex gap-3 items-center">
-                    <div className="flex gap-1">
+                  <div className="md:flex gap-3 items-center">
+                    <div className="flex gap-1 items-center">
+                      <Link to={`/album/${avaliacao.idAlbum}`}>
+                        <i class="text-white fa-solid fa-arrow-up-right-from-square mr-1 hover:scale-125"></i>
+                      </Link>
                     <Rating>
                       <RatingStar>
                       </RatingStar>
