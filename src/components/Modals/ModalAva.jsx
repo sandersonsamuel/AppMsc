@@ -103,7 +103,8 @@ export function ModalAva({albumInfos, alerta}){
             idUser: auth.currentUser.uid,
             idAlbum: albumInfos.id,
             notaAlbum: starAva,
-            avaliacao: textAva
+            avaliacao: textAva,
+            nameAlbum: albumInfos.name
           }
         }
       });
@@ -114,7 +115,9 @@ export function ModalAva({albumInfos, alerta}){
           idUser: auth.currentUser.uid,
           idAlbum: albumInfos.id,
           notaAlbum: starAva,
-          avaliacao: textAva
+          avaliacao: textAva,
+          nameAlbum: albumInfos.name
+
         }
       });
     }

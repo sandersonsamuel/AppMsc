@@ -54,7 +54,7 @@ export function Faixas({album, color}){
 
 
   return(
-    <div className="w-100">
+    <div className="w-100 pb-5">
       {
         faixas.map((msc, index)=>(
           <div key={index} className="flex justify-center items-center mt-5 gap-3 w-full px-5">

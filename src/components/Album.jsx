@@ -111,15 +111,16 @@ export function Album(){
       {error ? <div className='text-5xl'>Erro: {error.message}</div> :(album && (
       <>
         <ColorExtractor src={album.images[1].url} getColors={addColor} />
-        <div className='bg-gradient-to-bl from-slate-900 to-slate-950 w-full min-h-screen text-white flex flex-col p-3 md:p-5 transition-all pb-10'>
+        <div className='bg-gradient-to-bl from-slate-900 to-slate-950 w-full min-h-screen text-white flex flex-col p-3 md:p-5 transition-all'>
         {alerta && <Alerta/>}
-          <div style={{background: `${color}`}} className="flex align-bottom justify-between position-relative gap-5 pb-10 p-5 transition-all w-full">
+          <div style={{background: `${color}`}} className="md:flex align-bottom justify-between position-relative gap-5 p-5 md:p-7 transition-all w-full">
               <div className='md:flex items-center gap-10 transition-all'>
                 <img className='shadow-envolve-xl transition-all cursor-pointer hover:scale-105 max-w-36 md:max-w-64' src={album.images[1].url} alt={album.name}/>
+                
                 <div className='mt-2'>
 
                   <h1 className={`text-md sm:text-2xl font-bold text-[${color}]`}>Album</h1>
-                  <h1 className='text-2xl w-11/12 md:w-auto sm:text-7xl font-bold mb-3 md:text-clip break-words'>{album.name}</h1>
+                  <h1 className='text-[1.8rem] sm:text-7xl font-bold mb-3 md:text-clip break-words'>{album.name}</h1>
                   
                   <div className='sm:flex gap-2'>
                     <h1 className='text-sm sm:text-xl font-bold'>{album.artists[0].name}</h1>
@@ -132,7 +133,7 @@ export function Album(){
                 </div>
                 
               </div>
-              <div className='flex flex-col justify-between h-100 items-end'>
+              <div className='flex my-2 md:flex-col justify-between h-100 items-end'>
           
                 <Link to={album.external_urls.spotify}>
                   <i className="text-3xl sm:text-4xl fa-brands fa-spotify cursor-pointer hover:scale-110 transition hover:brightness-90"></i>
