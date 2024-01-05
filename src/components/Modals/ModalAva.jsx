@@ -92,7 +92,7 @@ export function ModalAva({albumInfos, alerta}){
     handleClose()
 
     const db = databaseApp
-    const userDoc = doc(db, 'avaliacoes', 'auth.currentUser.uid');
+    const userDoc = doc(db, 'avaliacoes', auth.currentUser.uid);
     
     const docSnap = await getDoc(userDoc)
   
