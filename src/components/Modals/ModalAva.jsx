@@ -7,7 +7,7 @@ import { useRatingAlbum } from "../RatingAlbum";
 import { doc, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { databaseApp } from "../../configs/firebase";
 
-export function ModalAva({albumInfos}){
+export function ModalAva({albumInfos, alerta}){
 
   const navigate = useNavigate()
 
@@ -80,7 +80,7 @@ export function ModalAva({albumInfos}){
     if(pdAvaliar){
       setOpen(true)
     }else{
-      alert('Você precisa avaliar todas as músicas antes de avaliar o album por completo')
+      alerta()
     }
     
   }

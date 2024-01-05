@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import capaAlbumJesusIsKing from '../assets/jesusAlbum.png'
+import capaAlbumJesusIsKing from '../assets/jesusAlbumC.png'
 import gsap from 'gsap'
 
 export function AlbumGirando(){

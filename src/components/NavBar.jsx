@@ -63,7 +63,7 @@ export function NavBar(){
 
         <div className="lg:hidden flex gap-3 items-center">
           <i 
-            className="fa-solid fa-bars text-xl"
+            className="fa-solid fa-bars text-xl cursor-pointer"
             onClick={()=> setMenu(!menu)}
           ></i>
           <Link className="md:hidden" to={'/'}><h1 className=" text-2xl font-bold">MelodyMingler.</h1></Link>
@@ -71,7 +71,7 @@ export function NavBar(){
         
       </nav>
       { menu &&
-      <ul className="traniti bg-gradient-to-br text-white to-slate-900 from-slate-950 lg:hidden md:gap-5 gap-2 p-2 md:m-0 md:w-auto justify-center flex flex-col w-100">
+      <ul className="bg-slate-800 text-white lg:hidden md:gap-5 gap-2 p-5 md:m-0 md:w-auto justify-center flex flex-col w-100">
         {logged && <Link to={"/my"}><li className="text-xl cursor-pointer lg:text-lg font-bold hover:opacity-70 text-center" >Minhas Avaliações</li></Link>}
         <li className="cursor-pointer text-xl lg:text-lg font-bold hover:opacity-70 text-center" >Albuns do Momento</li>
       </ul>
