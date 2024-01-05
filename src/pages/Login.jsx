@@ -57,6 +57,7 @@ export function Login(){
 
           <input
             type="email"
+            autoComplete="on"
             className="w-full h-12 outline-none border-2 border-slate-300 rounded-md p-5 bg-transparent"
             placeholder="Email"
             onChange={event=> setEmail(event.target.value)}
@@ -65,6 +66,7 @@ export function Login(){
 
           <input
             type="password"
+            autoComplete="on"
             className="w-full h-12 outline-none border-2 border-slate-300 rounded-md p-5 bg-transparent"
             placeholder="Senha"
             onChange={event=> setPassword(event.target.value)}
