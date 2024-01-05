@@ -79,6 +79,7 @@ export function Login(){
           />
 
           <button
+            type="button"
             onClick={sigInGoogle}
             className="w-full text-blue-700 h-12 shadow-custom border-2 hover:bg-slate-200 border-slate-300 rounded-md space-x-3 flex items-center justify-center">
             <i className="fa-brands fa-google"></i>
