@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useRatingAlbum } from "../RatingAlbum";
 import { doc, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { databaseApp } from "../../configs/firebase";
+import { Timestamp } from "firebase/firestore";
 
 export function ModalAva({albumInfos, alerta}){
 
@@ -91,7 +92,7 @@ export function ModalAva({albumInfos, alerta}){
     handleClose()
 
     const db = databaseApp
-    const userDoc = doc(db, 'avaliacoes', auth.currentUser.uid);
+    const userDoc = doc(db, 'avaliacoes', 'auth.currentUser.uid');
     
     const docSnap = await getDoc(userDoc)
   
@@ -104,7 +105,9 @@ export function ModalAva({albumInfos, alerta}){
             idAlbum: albumInfos.id,
             notaAlbum: starAva,
             avaliacao: textAva,
-            nameAlbum: albumInfos.name
+            nameAlbum: albumInfos.name,
+            dataAva: Timestamp.now(),
+            InfoAlbum: albumInfos
           }
         }
       });
@@ -116,8 +119,9 @@ export function ModalAva({albumInfos, alerta}){
           idAlbum: albumInfos.id,
           notaAlbum: starAva,
           avaliacao: textAva,
-          nameAlbum: albumInfos.name
-
+          nameAlbum: albumInfos.name,
+          dataAva: Timestamp.now(),
+          InfoAlbum: albumInfos
         }
       });
     }
