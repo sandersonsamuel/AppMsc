@@ -11,32 +11,38 @@ export const useGetTA = (name, type) =>{
 
   useEffect(() => {
 
-    var authParameters = {
-      method : 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
-    }
-    fetch('https://accounts.spotify.com/api/token', authParameters)
-    .then(Result => Result.json())
-    .then(data => {
+    if (name) {
+      if (name.length > 0){
 
-    setAccessToken(data.access_token)
-    return fetch(`https://api.spotify.com/v1/search?q=${name}&type=${type}`, {
-      method: 'GET',
-      headers: { 'Authorization': 'Bearer ' + data.access_token }
-    })})  
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Musica não encontrada');
+        var authParameters = {
+        method : 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
       }
-      return response.json();
-    })
-    .then(data => {
-      setResponse(data)
-    })
-    .catch(error => setError(error))
+      fetch('https://accounts.spotify.com/api/token', authParameters)
+      .then(Result => Result.json())
+      .then(data => {
+  
+      setAccessToken(data.access_token)
+      return fetch(`https://api.spotify.com/v1/search?q=${name}&type=${type}`, {
+        method: 'GET',
+        headers: { 'Authorization': 'Bearer ' + data.access_token }
+      })})  
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Musica não encontrada');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setResponse(data)
+      })
+      .catch(error => console.log(error))
+        
+      }
+    }
     
   }, [name])
 
