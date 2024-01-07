@@ -8,8 +8,6 @@ export function UltimasAva(){
 
   const [avaliacoes, setAvaliacoes] = useState(null)
 
-  console.log(avaliacoes);
-
   useEffect(()=>{
 
     GetAvalAlbum(setAvaliacoes)

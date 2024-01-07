@@ -7,7 +7,7 @@ import { onAuthStateChanged } from "firebase/auth"
 import { useEffect, useState } from "react"
 import { Rating } from 'flowbite-react'
 
-export function Faixas({album, color}){
+export function Faixas({album, color, faixasOnly, evento}){
 
   const faixas = album.tracks.items
 
@@ -58,7 +58,7 @@ export function Faixas({album, color}){
       {
         faixas.map((msc, index)=>(
           <div key={index} className="flex justify-center items-center mt-5 gap-3 w-full px-5">
-            <div className="flex w-full md:p-5 md:shadow-2xl md:border-2 border-slate-700 cursor-pointer md:bg-slate-800 justify-between items-center md:hover:saturate-[120%] md:hover:shadow-envolve-xl" key={index}>
+            <div onClick={()=> evento ? evento(msc) : null} className="flex w-full md:p-5 md:shadow-2xl md:border-2 border-slate-700 cursor-pointer md:bg-slate-800 justify-between items-center md:hover:saturate-[120%] md:hover:shadow-envolve-xl" key={index}>
               <div className="px-2 overflow-hidden overflow-ellipsis whitespace-nowrap w-96">
                 <h1 className="text-white text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">{msc.name}</h1>
                 <div className="flex gap-2 items-center">
@@ -77,7 +77,7 @@ export function Faixas({album, color}){
               
               <h1 className="text-white md:text-xl">{msToMin(msc.duration_ms)}</h1>
             </div>
-            <ModalRating color={color} msc={msc} album={album}/>
+            {!faixasOnly && <ModalRating color={color} msc={msc} album={album}/>}
           </div>
         ))
       }
