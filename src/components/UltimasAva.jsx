@@ -18,7 +18,7 @@ export function UltimasAva(){
 
   return(
     <>
-      <div className="w-11/12 md:w-[30rem] flex flex-col items-center h-[25rem] p-5 bg-slate-800 rounded-xl overflow-auto">
+      <div className="w-11/12 flex flex-col items-center h-[25rem] p-5 bg-slate-800 rounded-xl overflow-auto">
           <h1 className="text-2xl font-semibold mb-4">Albuns Avaliados</h1>
           <Accordion className="w-full">
             {avaliacoes && 
@@ -30,6 +30,7 @@ export function UltimasAva(){
                       <Link to={`/album/${avaliacao.idAlbum}`}>
                         <i className="text-white fa-solid fa-arrow-up-right-from-square mr-1 hover:scale-125"></i>
                       </Link>
+                      <img src={avaliacao.InfoAlbum.images[0].url} alt={`Capa de "${avaliacao.nameAlbum}"`} className="w-16 border-2 mb-2 md:mb-0 border-slate-500 rounded-lg" />
                     <Rating>
                       <RatingStar>
                       </RatingStar>
