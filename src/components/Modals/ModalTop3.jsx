@@ -3,6 +3,8 @@ import { Modal, ModalFooter, ModalBody, ModalHeader, Button } from 'flowbite-rea
 import { CLIENT_ID, CLIENT_SECRET } from '../../configs/SpotifyConfigs'
 import { Faixas } from '../Faixas'
 import { Albuns } from '../Albuns'
+import { auth } from '../../configs/firebase'
+import { addDoc } from 'firebase/firestore'
 
 export const useGetTA = (name, type) =>{
 
@@ -101,6 +103,9 @@ export function AdcTop({top, type}){
   const musicas = useGetTA(pesq, 'track')
   const albuns = useGetTA(pesq, 'album')
 
+  const [top3Musicas, setTop3Musicas] = useState({})
+  const [top3Albuns, setTop3Albuns] = useState({})
+
   const handleOpen = () =>{
     setOpen(true)
   }
@@ -113,7 +118,12 @@ export function AdcTop({top, type}){
     event.preventDefault()
   }
 
-  const evento = (array) =>{
+  const AddMusica = (array) =>{
+
+    
+
+  }
+  const AddAlbum = (array) =>{
     console.log(array)
   }
 
@@ -126,13 +136,13 @@ export function AdcTop({top, type}){
       </Button>
 
       <Modal show={open} onClose={handleClose}>
-        <ModalHeader>Escolha seu top de Musicas</ModalHeader>
+        <ModalHeader>Adicione uma musica</ModalHeader>
         <ModalBody>
           <form onSubmit={handleSubmit} className='flex gap-2 items-center text-white justify-center'>
             <input onChange={(e)=> setPesq(e.target.value)} type="text" className='w-52 xl:w-64 h-8 rounded-2xl outline-none bg-slate-800 px-4 focus:bg-slate-700 transition-all' />
           </form>
           <div className='text-white'>
-          {musicas && <Faixas album={musicas} faixasOnly={true} evento={evento} />}
+          {musicas && <Faixas album={musicas} faixasOnly={true} evento={AddMusica} />}
           </div>
         </ModalBody>
       </Modal>
@@ -146,13 +156,13 @@ export function AdcTop({top, type}){
       </Button>
 
       <Modal show={open} onClose={handleClose}>
-        <ModalHeader>Escolha seu top de Album</ModalHeader>
+        <ModalHeader>Adicione um Album</ModalHeader>
         <ModalBody>
           <form onSubmit={handleSubmit} className='flex gap-2 items-center text-white justify-center'>
             <input onChange={(e)=> setPesq(e.target.value)} type="text" className='w-52 xl:w-64 h-8 rounded-2xl outline-none bg-slate-800 px-4 focus:bg-slate-700 transition-all' />
           </form>
           <div className='text-white'>
-          {albuns && <Albuns albuns={Object.values(albuns)[0].items} evento={evento} />}
+          {albuns && <Albuns albuns={Object.values(albuns)[0].items} evento={AddAlbum} />}
           </div>
         </ModalBody>
       </Modal>

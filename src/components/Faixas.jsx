@@ -58,7 +58,7 @@ export function Faixas({album, color, faixasOnly, evento}){
       {
         faixas.map((msc, index)=>(
           <div key={index} className="flex justify-center items-center mt-5 gap-3 w-full px-5">
-            <div onClick={()=> evento ? evento(msc) : null} className="flex w-full md:p-5 md:shadow-2xl md:border-2 border-slate-700 cursor-pointer md:bg-slate-800 justify-between items-center md:hover:saturate-[120%] md:hover:shadow-envolve-xl" key={index}>
+            <div className="flex w-full md:p-5 md:shadow-2xl md:border-2 border-slate-700 cursor-pointer md:bg-slate-800 justify-between items-center md:hover:saturate-[120%] md:hover:shadow-envolve-xl" key={index}>
               <div className="px-2 overflow-hidden overflow-ellipsis whitespace-nowrap w-96">
                 <h1 className="text-white text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">{msc.name}</h1>
                 <div className="flex gap-2 items-center">
@@ -77,6 +77,8 @@ export function Faixas({album, color, faixasOnly, evento}){
               
               <h1 className="text-white md:text-xl">{msToMin(msc.duration_ms)}</h1>
             </div>
+            {faixasOnly &&  <i onClick={()=> evento ? evento(msc) : null} className="fa-solid fa-circle-plus text-3xl cursor-pointer hover:scale-125 transition hover:text-blue-500"></i>}
+      
             {!faixasOnly && <ModalRating color={color} msc={msc} album={album}/>}
           </div>
         ))
