@@ -1,10 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Modal, ModalFooter, ModalBody, ModalHeader, Button } from 'flowbite-react'
+import React, { useEffect, useState } from 'react'
+import { Modal, ModalFooter, ModalBody, ModalHeader, Button, Alert } from 'flowbite-react'
 import { CLIENT_ID, CLIENT_SECRET } from '../../configs/SpotifyConfigs'
 import { Faixas } from '../Faixas'
 import { Albuns } from '../Albuns'
 import { auth, databaseApp } from '../../configs/firebase'
-import { doc, getDoc, setDoc, updateDoc} from 'firebase/firestore'
+import { doc, updateDoc} from 'firebase/firestore'
+import { HiInformationCircle } from 'react-icons/hi'
+
+function Alerta(){
+  return(
+  <Alert style={{zIndex: 9999}} className='mb-5 fixed top-0' color="success" icon={HiInformationCircle}>Adicionado com sucesso
+  </Alert>
+  )
+}
 
 export const useGetTA = (name, type) =>{
 
@@ -62,15 +70,7 @@ export const ModalTop3 = ({type}) => {
   const [top1Album, setTop1Album] = useState(null)
   const [top2Album, setTop2Album] = useState(null)
   const [top3Album, setTop3Album] = useState(null)
-
-  /* useEffect(()=>{
-    console.log([top1Musica, top2Musica, top3Musica])
-
-  }, [top1Musica, top2Musica, top3Musica])
-
-  useEffect(()=>{
-    console.log([top1Album, top2Album, top3Album])
-  }, [top1Album, top2Album, top3Album]) */
+  const [alerta, setAlerta] = useState(null)
 
   const handleOpen = () =>{
     setOpen(true)
@@ -104,7 +104,7 @@ export const ModalTop3 = ({type}) => {
         const docRef = doc(db, 'avaliacoes', auth.currentUser.uid) 
         
         await updateDoc(docRef, {
-          top3Musicas: {
+          top3Albuns: {
             1: top1Album,
             2: top2Album,
             3: top3Album,
@@ -118,6 +118,7 @@ export const ModalTop3 = ({type}) => {
 
   return (
     <>
+    {alerta && <Alerta/>}
       <i onClick={handleOpen} className="fa-solid fa-circle-plus text-3xl cursor-pointer hover:scale-125 transition hover:text-blue-500"></i>
       <Modal show={open} onClose={handleClose}>
         <div className='text-white'>
@@ -128,9 +129,9 @@ export const ModalTop3 = ({type}) => {
 
             <div className='flex flex-col gap-3 items-start'>
 
-              <AdcTop type={type} top={1} setMusica={type == 'musicas' ? setTop1Musica : setTop1Album}/>
-              <AdcTop type={type} top={2} setMusica={type == 'musicas' ? setTop2Musica : setTop2Album}/>
-              <AdcTop type={type} top={3} setMusica={type == 'musicas' ? setTop3Musica : setTop3Album}/>
+              <AdcTop type={type} top={1} setTA={type == 'musicas' ? setTop1Musica : setTop1Album}/>
+              <AdcTop type={type} top={2} setTA={type == 'musicas' ? setTop2Musica : setTop2Album}/>
+              <AdcTop type={type} top={3} setTA={type == 'musicas' ? setTop3Musica : setTop3Album}/>
 
             </div>
           </ModalBody>
@@ -144,10 +145,11 @@ export const ModalTop3 = ({type}) => {
   )
 }
 
-export function AdcTop({top, type, setMusica}){
+export function AdcTop({top, type, setTA}){
 
   const [open, setOpen] = useState(false)
   const [pesq, setPesq] = useState(null)
+
   const musicas = useGetTA(pesq, 'track')
   const albuns = useGetTA(pesq, 'album')
 
@@ -161,10 +163,6 @@ export function AdcTop({top, type, setMusica}){
 
   const handleSubmit = (event) =>{
     event.preventDefault()
-  }
-
-  const AddAlbum = (array) =>{
-    console.log(array)
   }
 
   return(
@@ -182,7 +180,7 @@ export function AdcTop({top, type, setMusica}){
             <input onChange={(e)=> setPesq(e.target.value)} type="text" className='w-52 xl:w-64 h-8 rounded-2xl outline-none bg-slate-800 px-4 focus:bg-slate-700 transition-all' />
           </form>
           <div className='text-white'>
-          {musicas && <Faixas album={musicas} faixasOnly={true} evento={setMusica} />}
+          {musicas && <Faixas album={musicas} faixasOnly={true} evento={setTA} />}
           </div>
         </ModalBody>
       </Modal>
@@ -202,7 +200,7 @@ export function AdcTop({top, type, setMusica}){
             <input onChange={(e)=> setPesq(e.target.value)} type="text" className='w-52 xl:w-64 h-8 rounded-2xl outline-none bg-slate-800 px-4 focus:bg-slate-700 transition-all' />
           </form>
           <div className='text-white'>
-          {albuns && <Albuns albuns={Object.values(albuns)[0].items} evento={AddAlbum} />}
+          {albuns && <Albuns albuns={Object.values(albuns)[0].items} evento={setTA} />}
           </div>
         </ModalBody>
       </Modal>

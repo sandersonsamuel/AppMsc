@@ -4,7 +4,7 @@ import { AppRating } from "../Rating"
 import { databaseApp } from '../../configs/firebase'
 import { auth } from "../../configs/firebase"
 import { useNavigate } from "react-router-dom";
-import { collection, addDoc, doc, updateDoc, getDoc, setDoc } from "firebase/firestore"
+import { doc, updateDoc, getDoc, setDoc } from "firebase/firestore"
 
 export const ModalRating = ({color, msc, album}) => {
 
@@ -41,7 +41,10 @@ export const ModalRating = ({color, msc, album}) => {
           [`${msc.id}`]: {
             idUser: auth.currentUser.uid,
             idAlbum: album.id,
-            nota: rating
+            nota: rating,
+            idMsc: msc.id,
+            mscInfos: msc
+
           }
         }
       });
@@ -52,7 +55,9 @@ export const ModalRating = ({color, msc, album}) => {
           idUser: auth.currentUser.uid,
           idAlbum: album.id,
           nota: rating,
-          idMsc: msc.id
+          idMsc: msc.id,
+          mscInfos: msc
+
         }
       });
     }
