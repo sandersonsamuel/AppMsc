@@ -9,7 +9,7 @@ import { HiInformationCircle } from 'react-icons/hi'
 
 function Alerta(){
   return(
-  <Alert style={{zIndex: 9999}} className='mb-5 fixed top-0' color="success" icon={HiInformationCircle}>Adicionado com sucesso
+  <Alert style={{zIndex: 9999}} className='mb-5 fixed top-2 right-2' color="success" icon={HiInformationCircle}>Adicionado com sucesso
   </Alert>
   )
 }
@@ -59,7 +59,7 @@ export const useGetTA = (name, type) =>{
   return response
 }
 
-export const ModalTop3 = ({type}) => {
+export const ModalTop3 = ({type, top3Albuns, top3Musicas}) => {
 
   const [open, setOpen] = useState(false)
 
@@ -70,7 +70,76 @@ export const ModalTop3 = ({type}) => {
   const [top1Album, setTop1Album] = useState(null)
   const [top2Album, setTop2Album] = useState(null)
   const [top3Album, setTop3Album] = useState(null)
+
   const [alerta, setAlerta] = useState(null)
+
+  const top3AlbunsTemp = [top1Album, top2Album, top3Album]
+  const top3MusicasTemp = [top1Musica, top2Musica, top3Musica]
+
+
+  useEffect(()=>{
+
+    if (top3Musicas) {
+      setTop1Musica(top3Musicas[0])
+      setTop2Musica(top3Musicas[1])
+      setTop3Musica(top3Musicas[2])
+    }
+
+  }, [top3Musicas])
+
+  useEffect(()=>{
+
+    if (top3Albuns) {
+      setTop1Album(top3Albuns[0])
+      setTop2Album(top3Albuns[1])
+      setTop3Album(top3Albuns[2])
+    }
+
+  }, [top3Albuns])
+
+  useEffect(()=>{
+    if (top1Musica || top2Musica || top3Musica){
+      if (top3Musicas) {
+        if (top1Musica != top3Musicas[0] || top2Musica != top3Musicas[1] || top3Musica != top3Musicas[2]) {
+          setAlerta(true)
+  
+          setTimeout(() => {
+          setAlerta(false)
+          }, 3000)
+        }
+      }else{
+        setAlerta(true)
+  
+          setTimeout(() => {
+          setAlerta(false)
+          }, 3000)
+      }
+    }
+
+  }, [top1Musica, top2Musica, top3Musica])
+
+  useEffect(()=>{
+    if (top1Album || top2Album || top3Album){
+      if (top3Albuns) {
+        if (top1Album != top3Albuns[0] || top2Album != top3Albuns[1] || top3Album != top3Albuns[2]) {
+          setAlerta(true)
+  
+          setTimeout(() => {
+          setAlerta(false)
+          }, 3000)
+        }
+      }else{
+        setAlerta(true)
+  
+          setTimeout(() => {
+          setAlerta(false)
+          }, 3000)
+      }
+    }
+
+  }, [top1Album, top2Album, top3Album])
+
+
 
   const handleOpen = () =>{
     setOpen(true)
@@ -89,11 +158,11 @@ export const ModalTop3 = ({type}) => {
         const docRef = doc(db, 'avaliacoes', auth.currentUser.uid) 
         
         await updateDoc(docRef, {
-          top3Musicas: {
-            1: top1Musica,
-            2: top2Musica,
-            3: top3Musica,
-          }
+          top3Musicas: [
+            top1Musica,
+            top2Musica,
+            top3Musica,
+          ]
         })
 
       }
@@ -104,11 +173,11 @@ export const ModalTop3 = ({type}) => {
         const docRef = doc(db, 'avaliacoes', auth.currentUser.uid) 
         
         await updateDoc(docRef, {
-          top3Albuns: {
-            1: top1Album,
-            2: top2Album,
-            3: top3Album,
-          }
+          top3Albuns: [
+             top1Album,
+             top2Album,
+             top3Album,
+          ]
         })
 
       }
@@ -129,14 +198,14 @@ export const ModalTop3 = ({type}) => {
 
             <div className='flex flex-col gap-3 items-start'>
 
-              <AdcTop type={type} top={1} setTA={type == 'musicas' ? setTop1Musica : setTop1Album}/>
-              <AdcTop type={type} top={2} setTA={type == 'musicas' ? setTop2Musica : setTop2Album}/>
-              <AdcTop type={type} top={3} setTA={type == 'musicas' ? setTop3Musica : setTop3Album}/>
+              <AdcTop type={type} top3Albuns={top3AlbunsTemp} top3Musicas={top3MusicasTemp} top={1} setTA={type == 'musicas' ? setTop1Musica : setTop1Album}/>
+              <AdcTop type={type} top3Albuns={top3AlbunsTemp} top3Musicas={top3MusicasTemp} top={2} setTA={type == 'musicas' ? setTop2Musica : setTop2Album}/>
+              <AdcTop type={type} top3Albuns={top3AlbunsTemp} top3Musicas={top3MusicasTemp} top={3} setTA={type == 'musicas' ? setTop3Musica : setTop3Album}/>
 
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={handleSubmit}>Adicionar</Button>
+            <Button onClick={handleSubmit}>{top3Albuns || top3Musicas ? 'Modificar': 'Adicionar'}</Button>
             <Button onClick={handleClose} color='gray'>Cancelar</Button>
           </ModalFooter>
         </div>
@@ -145,7 +214,7 @@ export const ModalTop3 = ({type}) => {
   )
 }
 
-export function AdcTop({top, type, setTA}){
+export function AdcTop({top, type, setTA, top3Albuns, top3Musicas}){
 
   const [open, setOpen] = useState(false)
   const [pesq, setPesq] = useState(null)
@@ -169,12 +238,21 @@ export function AdcTop({top, type, setTA}){
 
     <>
       {type == 'musicas' ? (<>
-      <Button onClick={handleOpen} className='flex items-center'>
-        <p className='mr-2'>Top-{top} </p><i className='text-xl fa-solid fa-circle-plus cursor-pointer'></i>
-      </Button>
+
+      <div className='flex items-center justify-between w-full'>
+      {top3Musicas && top3Musicas[top-1] && (
+        <p className='text-xl'>
+          <span className='font-bold'>{top}:</span> {top3Musicas[top-1].name}
+        </p>
+      )}
+
+        <Button onClick={handleOpen} color='gray' className='flex items-center'>
+          <p className='mr-2'>Top-{top} </p><i className='text-xl fa-solid fa-circle-plus cursor-pointer'></i>
+        </Button>
+      </div>
 
       <Modal show={open} onClose={handleClose}>
-        <ModalHeader>Adicione uma musica</ModalHeader>
+        <ModalHeader>Adicione uma música para seu Top-{top}</ModalHeader>
         <ModalBody>
           <form onSubmit={handleSubmit} className='flex gap-2 items-center text-white justify-center'>
             <input onChange={(e)=> setPesq(e.target.value)} type="text" className='w-52 xl:w-64 h-8 rounded-2xl outline-none bg-slate-800 px-4 focus:bg-slate-700 transition-all' />
@@ -189,9 +267,17 @@ export function AdcTop({top, type, setTA}){
 
       </>) : type == 'albuns' ? (
         <>
-          <Button onClick={handleOpen} className='flex items-center'>
-        <p className='mr-2'>Top-{top} </p><i className='text-xl fa-solid fa-circle-plus cursor-pointer'></i>
-      </Button>
+          <div className='flex items-center justify-between w-full'>
+            {top3Albuns && top3Albuns[top-1] && (
+              <p className='text-xl'>
+                <span className='font-bold'>{top}:</span> {top3Albuns[top-1].name}
+              </p>
+            )}
+
+            <Button onClick={handleOpen} color='gray' className='flex items-center'>
+              <p className='mr-2'>Top-{top} </p><i className='text-xl fa-solid fa-circle-plus cursor-pointer'></i>
+            </Button>
+          </div>
 
       <Modal show={open} onClose={handleClose}>
         <ModalHeader>Adicione um Album</ModalHeader>
