@@ -3,8 +3,8 @@ import { Modal, ModalFooter, ModalBody, ModalHeader, Button } from 'flowbite-rea
 import { CLIENT_ID, CLIENT_SECRET } from '../../configs/SpotifyConfigs'
 import { Faixas } from '../Faixas'
 import { Albuns } from '../Albuns'
-import { auth } from '../../configs/firebase'
-import { addDoc } from 'firebase/firestore'
+import { auth, databaseApp } from '../../configs/firebase'
+import { doc, getDoc, setDoc, updateDoc} from 'firebase/firestore'
 
 export const useGetTA = (name, type) =>{
 
@@ -55,6 +55,23 @@ export const ModalTop3 = ({type}) => {
 
   const [open, setOpen] = useState(false)
 
+  const [top1Musica, setTop1Musica] = useState(null)
+  const [top2Musica, setTop2Musica] = useState(null)
+  const [top3Musica, setTop3Musica] = useState(null)
+  
+  const [top1Album, setTop1Album] = useState(null)
+  const [top2Album, setTop2Album] = useState(null)
+  const [top3Album, setTop3Album] = useState(null)
+
+  /* useEffect(()=>{
+    console.log([top1Musica, top2Musica, top3Musica])
+
+  }, [top1Musica, top2Musica, top3Musica])
+
+  useEffect(()=>{
+    console.log([top1Album, top2Album, top3Album])
+  }, [top1Album, top2Album, top3Album]) */
+
   const handleOpen = () =>{
     setOpen(true)
   }
@@ -63,8 +80,40 @@ export const ModalTop3 = ({type}) => {
     setOpen(false)
   }
 
-  const handleSubmit = () =>{
+  const handleSubmit = async () =>{
     setOpen(false)
+
+    if (type == "musicas"){
+      if (top1Musica && top2Musica && top3Musica){
+        const db = databaseApp
+        const docRef = doc(db, 'avaliacoes', auth.currentUser.uid) 
+        
+        await updateDoc(docRef, {
+          top3Musicas: {
+            1: top1Musica,
+            2: top2Musica,
+            3: top3Musica,
+          }
+        })
+
+      }
+
+    }else{
+      if (top1Album && top2Album && top3Album){
+        const db = databaseApp
+        const docRef = doc(db, 'avaliacoes', auth.currentUser.uid) 
+        
+        await updateDoc(docRef, {
+          top3Musicas: {
+            1: top1Album,
+            2: top2Album,
+            3: top3Album,
+          }
+        })
+
+      }
+    }
+
   }
 
   return (
@@ -79,12 +128,11 @@ export const ModalTop3 = ({type}) => {
 
             <div className='flex flex-col gap-3 items-start'>
 
-              <AdcTop type={type} top={1} />
-              <AdcTop type={type} top={2} />
-              <AdcTop type={type} top={3} />
+              <AdcTop type={type} top={1} setMusica={type == 'musicas' ? setTop1Musica : setTop1Album}/>
+              <AdcTop type={type} top={2} setMusica={type == 'musicas' ? setTop2Musica : setTop2Album}/>
+              <AdcTop type={type} top={3} setMusica={type == 'musicas' ? setTop3Musica : setTop3Album}/>
 
             </div>
-
           </ModalBody>
           <ModalFooter>
             <Button onClick={handleSubmit}>Adicionar</Button>
@@ -96,15 +144,12 @@ export const ModalTop3 = ({type}) => {
   )
 }
 
-export function AdcTop({top, type}){
+export function AdcTop({top, type, setMusica}){
 
   const [open, setOpen] = useState(false)
   const [pesq, setPesq] = useState(null)
   const musicas = useGetTA(pesq, 'track')
   const albuns = useGetTA(pesq, 'album')
-
-  const [top3Musicas, setTop3Musicas] = useState({})
-  const [top3Albuns, setTop3Albuns] = useState({})
 
   const handleOpen = () =>{
     setOpen(true)
@@ -118,11 +163,6 @@ export function AdcTop({top, type}){
     event.preventDefault()
   }
 
-  const AddMusica = (array) =>{
-
-    
-
-  }
   const AddAlbum = (array) =>{
     console.log(array)
   }
@@ -142,7 +182,7 @@ export function AdcTop({top, type}){
             <input onChange={(e)=> setPesq(e.target.value)} type="text" className='w-52 xl:w-64 h-8 rounded-2xl outline-none bg-slate-800 px-4 focus:bg-slate-700 transition-all' />
           </form>
           <div className='text-white'>
-          {musicas && <Faixas album={musicas} faixasOnly={true} evento={AddMusica} />}
+          {musicas && <Faixas album={musicas} faixasOnly={true} evento={setMusica} />}
           </div>
         </ModalBody>
       </Modal>
