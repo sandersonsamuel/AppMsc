@@ -33,6 +33,7 @@ export function Album(){
   const [avaliacaoAlbum, setAvaliacaoAlbum] = useState(null)
   const [albuns, setAlbuns] = useState(null)
   const [alerta, setAlerta] = useState(false)
+  
 
   const redirectNovaJanela = (link) =>{
     open(link, '_blank')
@@ -51,6 +52,8 @@ export function Album(){
       Object.values(albuns).forEach(albumAva=>{
         if (albumAva.idAlbum === albumId){
           setAvaliacaoAlbum(albumAva)
+        }else{
+          setAvaliacaoAlbum(null)
         }
       })
     }
@@ -65,7 +68,7 @@ export function Album(){
 
     const unsubscribe = onSnapshot(doc(databaseApp, `avaliacoes/${auth.currentUser.uid}`), (docSnap) => {
       if (docSnap.exists()) {
-        setAlbuns(docSnap.data().album)
+        setAlbuns(docSnap.data().albuns)
       }
     })
 
@@ -144,7 +147,7 @@ export function Album(){
               </div>
         
           </div>
-          <ReviewAlbum review={avaliacaoAlbum}/>
+          {avaliacaoAlbum && <ReviewAlbum review={avaliacaoAlbum}/>}
             <Faixas album={album} color={color}/>
         </div>
       </>

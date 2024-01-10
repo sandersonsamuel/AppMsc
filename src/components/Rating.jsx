@@ -1,6 +1,8 @@
 import { Rating } from 'flowbite-react';
 import { useState } from 'react';
 import ReactStars from 'react-stars';
+import { Rate } from 'antd';
+import '../App.css'
 
 export function AppRating({value, setRating, rating}) {
 
@@ -19,18 +21,9 @@ export function AppRating({value, setRating, rating}) {
 
     )
   }else{
-
-    const ratingChanged = (newRating) => {
-      console.log(newRating)
-    }
   
     return (
-      <ReactStars
-      count={5}
-      onChange={setRating}
-      size={45}
-      value={rating}
-      color2={'#E3A008'} />
+      <Rate style={{color: '#F09F00'}} className='text-3xl' onChange={setRating} allowHalf/>
     )
     
   }

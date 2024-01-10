@@ -8,7 +8,7 @@ export const GetAvalAlbum = (setAvaliacoesUser) => {
 
   return onSnapshot(doc(databaseApp, 'avaliacoes/' + auth.currentUser.uid), (docSnap) => {
     if (docSnap.exists()) {
-      setAvaliacoesUser(docSnap.data().album);
+      setAvaliacoesUser(docSnap.data().albuns)
     }
   });
 }

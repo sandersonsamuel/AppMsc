@@ -99,7 +99,7 @@ export function ModalAva({albumInfos, alerta}){
     if (!docSnap.exists()) {
 
       await setDoc(userDoc, {
-        album: {
+        albuns: {
           [`${albumInfos.id}`]: {
             idUser: auth.currentUser.uid,
             idAlbum: albumInfos.id,
@@ -114,7 +114,7 @@ export function ModalAva({albumInfos, alerta}){
     } else {
       // Se o usuário já existir, só atualiza os dados
       await updateDoc(userDoc, {
-        [`album.${albumInfos.id}`]: {
+        [`albuns.${albumInfos.id}`]: {
           idUser: auth.currentUser.uid,
           idAlbum: albumInfos.id,
           notaAlbum: starAva,

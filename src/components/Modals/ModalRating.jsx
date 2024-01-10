@@ -1,10 +1,12 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Modal, ModalBody, Button, ModalHeader } from "flowbite-react"
 import { AppRating } from "../Rating"
 import { databaseApp } from '../../configs/firebase'
 import { auth } from "../../configs/firebase"
 import { useNavigate } from "react-router-dom";
 import { doc, updateDoc, getDoc, setDoc, deleteField } from "firebase/firestore"
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { GetAvalAlbum } from "../GetAval"
 
 export const ModalRating = ({color, msc, album}) => {
 
@@ -22,18 +24,6 @@ export const ModalRating = ({color, msc, album}) => {
   }
 
   const handleClose = () => setOpen(false)
-
-  const clearAva = async () => {
-    setOpen(false)
-    setRating(0)
-  
-    const db = databaseApp;
-    const userDoc = doc(db, 'avaliacoes', auth.currentUser.uid)
-
-    await updateDoc(userDoc, {
-      [`musicas.${msc.id}`]: deleteField()
-    });
-  }
   
   const handleEnviar = async () => {
 
@@ -92,10 +82,81 @@ export const ModalRating = ({color, msc, album}) => {
                 <Button size={'sm'} onClick={handleEnviar}>Enviar</Button>
                 <Button size={'sm'} color="gray" onClick={handleClose}>Cancelar</Button>
               </div>
-              <Button size={'sm'} onClick={clearAva} color="failure">Limpar</Button>
+              <DeletAlert msc={msc} album={album} setRating={setRating} CloseModal={handleClose}/>
             </div>
           </Modal.Footer>
       </Modal>
     </div>
   )
+}
+
+function DeletAlert({msc, album, setRating, CloseModal}) {
+
+  const [openModal, setOpenModal] = useState(false)
+  const [avaliacoes, setAvaliacoes] = useState(null)
+  const [isAva, setIsAva] = useState(false)
+
+  useEffect(()=>{
+
+    GetAvalAlbum(setAvaliacoes)
+
+  }, [])
+  useEffect(()=>{
+    if (avaliacoes) {
+      if (album) {
+        Object.values(avaliacoes).forEach((avaliacao)=>{
+          if(avaliacao.idAlbum == album.id){
+            setIsAva(true)
+          }
+        })
+        
+      }
+    }
+  },[avaliacoes])
+
+  const clearAva = async () => {
+
+    setOpenModal(false)
+    setRating(0)
+  
+    const db = databaseApp;
+    const userDoc = doc(db, 'avaliacoes', auth.currentUser.uid)
+
+    await updateDoc(userDoc, {
+      [`musicas.${msc.id}`]: deleteField()
+    })
+    
+    if (isAva) {
+      await updateDoc(userDoc, {
+        [`albuns.${album.id}`]: deleteField()
+      })
+    }
+
+    await CloseModal()
+  }
+
+  return (
+    <>
+      <Button onClick={()=> setOpenModal(true)} size={'sm'} color="failure">Limpar</Button>
+      <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+              Tem certeza que deseja limpar a avaliacão? {isAva && 'isso irá apagar a avaliação deste album'} 
+            </h3>
+            <div className="flex justify-center gap-4">
+              <Button size={'sm'} color="failure" onClick={() => clearAva()}>
+                Apagar
+              </Button>
+              <Button size={'sm'} color="gray" onClick={() => setOpenModal(false)}>
+                Cancelar
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
 }
