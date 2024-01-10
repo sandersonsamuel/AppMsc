@@ -4,7 +4,7 @@ import { AppRating } from "../Rating"
 import { databaseApp } from '../../configs/firebase'
 import { auth } from "../../configs/firebase"
 import { useNavigate } from "react-router-dom";
-import { doc, updateDoc, getDoc, setDoc } from "firebase/firestore"
+import { doc, updateDoc, getDoc, setDoc, deleteField } from "firebase/firestore"
 
 export const ModalRating = ({color, msc, album}) => {
 
@@ -23,13 +23,24 @@ export const ModalRating = ({color, msc, album}) => {
 
   const handleClose = () => setOpen(false)
 
+  const clearAva = async () => {
+    setOpen(false)
+    setRating(0)
+  
+    const db = databaseApp;
+    const userDoc = doc(db, 'avaliacoes', auth.currentUser.uid)
+
+    await updateDoc(userDoc, {
+      [`musicas.${msc.id}`]: deleteField()
+    });
+  }
   
   const handleEnviar = async () => {
 
     handleClose()
   
     const db = databaseApp;
-    const userDoc = doc(db, 'avaliacoes', auth.currentUser.uid);
+    const userDoc = doc(db, 'avaliacoes', auth.currentUser.uid)
   
     // verificando se o usuário ja existe
     const docSnap = await getDoc(userDoc);
@@ -76,10 +87,13 @@ export const ModalRating = ({color, msc, album}) => {
           <AppRating setRating={setRating} rating={rating}/>
         </ModalBody>
         <Modal.Footer>
-            <Button onClick={handleEnviar}>Enviar</Button>
-            <Button color="gray" onClick={handleClose}>
-              Cancelar
-            </Button>
+            <div className="flex justify-between w-full">
+              <div className="flex gap-2">
+                <Button size={'sm'} onClick={handleEnviar}>Enviar</Button>
+                <Button size={'sm'} color="gray" onClick={handleClose}>Cancelar</Button>
+              </div>
+              <Button size={'sm'} onClick={clearAva} color="failure">Limpar</Button>
+            </div>
           </Modal.Footer>
       </Modal>
     </div>

@@ -117,7 +117,7 @@ export function Album(){
         {alerta && <Alerta/>}
           <div style={{background: `${color}`}} className="md:flex align-bottom justify-between position-relative gap-5 p-5 md:p-7 transition-all w-full">
               <div className='md:flex items-center gap-10 transition-all'>
-                <img className='shadow-envolve-xl transition-all cursor-pointer hover:scale-105 max-w-36 md:max-w-64' src={album.images[1].url} alt={album.name}/>
+                <img className='shadow-2xl transition-all cursor-pointer hover:scale-105 max-w-36 md:max-w-64' src={album.images[1].url} alt={album.name}/>
                 
                 <div className='mt-2'>
 
@@ -138,7 +138,6 @@ export function Album(){
               <div className='flex my-2 md:flex-col justify-between h-100 items-end'>
           
               <i onClick={()=> redirectNovaJanela(album.external_urls.spotify)} className="text-3xl sm:text-4xl fa-brands fa-spotify cursor-pointer hover:scale-110 transition hover:brightness-90"></i>
-                
 
                 <ModalAva albumInfos={album} alerta={darAlerta}/>
 

@@ -1,5 +1,6 @@
 import { Rating } from 'flowbite-react';
 import { useState } from 'react';
+import ReactStars from 'react-stars';
 
 export function AppRating({value, setRating, rating}) {
 
@@ -18,21 +19,19 @@ export function AppRating({value, setRating, rating}) {
 
     )
   }else{
+
+    const ratingChanged = (newRating) => {
+      console.log(newRating)
+    }
+  
     return (
-      <Rating className="flex" size='md'>
-        {[...Array(5)].map((star, i) => {
-          const ratingValue = (i + 1)
-          return (
-            <Rating.Star 
-              key={i}
-              filled={hover >= ratingValue || rating >= ratingValue} 
-              onClick={()=> rating != ratingValue ? setRating(ratingValue) : setRating(0)}
-              onMouseEnter={()=> setHover(ratingValue)} 
-              onMouseLeave={()=> setHover(0)}
-            />
-          );
-        })}
-      </Rating>
+      <ReactStars
+      count={5}
+      onChange={setRating}
+      size={45}
+      value={rating}
+      color2={'#E3A008'} />
     )
+    
   }
 }

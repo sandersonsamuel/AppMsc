@@ -147,8 +147,8 @@ export function ModalAva({albumInfos, alerta}){
             </div>
           </ModalBody>
           <Modal.Footer>
-            <Button onClick={handleSubmit}>Enviar</Button>
-            <Button color="gray" onClick={handleClose}>
+            <Button size={'sm'} onClick={handleSubmit}>Enviar</Button>
+            <Button size={'sm'} color="gray" onClick={handleClose}>
               Cancelar
             </Button>
           </Modal.Footer>
