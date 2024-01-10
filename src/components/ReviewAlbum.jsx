@@ -31,8 +31,6 @@ export const ReviewAlbum = ({review}) => {
       </Accordion>
       
     ) 
-  }else{
-    return null
   }
 }
 

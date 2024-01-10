@@ -4,9 +4,12 @@ import { Modal, Button, ModalBody, Label, Textarea } from "flowbite-react";
 import { auth } from "../../configs/firebase";
 import { useNavigate } from "react-router-dom";
 import { useRatingAlbum } from "../RatingAlbum";
-import { doc, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
+import { deleteField, doc, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { databaseApp } from "../../configs/firebase";
 import { Timestamp } from "firebase/firestore";
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { GetAvalAlbum } from "../GetAval";
+
 
 export function ModalAva({albumInfos, alerta}){
 
@@ -147,13 +150,84 @@ export function ModalAva({albumInfos, alerta}){
             </div>
           </ModalBody>
           <Modal.Footer>
-            <Button size={'sm'} onClick={handleSubmit}>Enviar</Button>
-            <Button size={'sm'} color="gray" onClick={handleClose}>
-              Cancelar
-            </Button>
+            <div className="flex w-full justify-between">
+              <div className="flex gap-2">
+                <Button size={'sm'} onClick={handleSubmit}>Enviar</Button>
+                <Button size={'sm'} color="gray" onClick={handleClose}>Cancelar</Button>
+              </div>
+              <AlertDeleteAva setClodeModal={setOpen} albumInfos={albumInfos}/>
+            </div>
           </Modal.Footer>
 
         </Modal>
+    </>
+  )
+}
+
+
+function AlertDeleteAva({setClodeModal, albumInfos}) {
+
+  const [openModal, setOpenModal] = useState(false)
+  const [avaliacoes, setAvaliacoes] = useState(false)
+  const [isAva, setIsAva] = useState(false)
+
+  useEffect(()=>{
+    GetAvalAlbum(setAvaliacoes)
+  }, [])
+
+  useEffect(()=>{
+    if (avaliacoes){
+      Object.values(avaliacoes).forEach((avaliacao)=> {
+        if (avaliacao.idAlbum === albumInfos.id){
+          setIsAva(true)
+        }
+      })
+    }
+  }, [avaliacoes])
+
+  const handleDeletAva = async () =>{
+
+    setOpenModal(false)
+
+    const db = databaseApp
+    const userDoc = doc(db, 'avaliacoes', auth.currentUser.uid)
+
+    await updateDoc(userDoc, {
+      [`albuns.${albumInfos.id}`]: deleteField()
+    })
+
+    await setClodeModal(false)
+  }
+
+  return (
+    <>
+      {isAva && 
+        <>
+
+          <Button size={'sm'} color="failure" onClick={()=> setOpenModal(true)}>Redefinir</Button>
+          
+          <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
+            <Modal.Header />
+            <Modal.Body>
+              <div className="text-center">
+                <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                  Tem certeza que deseja deletar a avalição deste album?
+                </h3>
+                <div className="flex justify-center gap-4">
+                  <Button color="failure" onClick={() => handleDeletAva()}>
+                    Deletar
+                  </Button>
+                  <Button color="gray" onClick={() => setOpenModal(false)}>
+                    Cancelar
+                  </Button>
+                </div>
+              </div>
+            </Modal.Body>
+          </Modal>
+          
+        </>
+      }
     </>
   )
 }

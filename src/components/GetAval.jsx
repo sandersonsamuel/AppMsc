@@ -12,3 +12,15 @@ export const GetAvalAlbum = (setAvaliacoesUser) => {
     }
   });
 }
+
+export const GetAvalMusica = (setAvaliacoesUser) => {
+  if (!auth.currentUser){
+    return
+  }
+
+  return onSnapshot(doc(databaseApp, 'avaliacoes/' + auth.currentUser.uid), (docSnap)=>{
+    if (docSnap.exists()){
+      setAvaliacoesUser(docSnap.data().musicas)
+    }
+  })
+}
