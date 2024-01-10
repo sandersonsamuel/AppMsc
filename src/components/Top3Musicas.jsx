@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { ModalTop3 } from './Modals/ModalTop3'
 import { GetTop3Musicas } from './GetTop3'
+import { useNavigate } from 'react-router-dom'
 
 export const Top3Musicas = () => {
 
   const [top3Musicas, setTop3Musicas] = useState(null)
+  const navigate = useNavigate()
+
 
   useEffect(()=>{
     GetTop3Musicas(setTop3Musicas)
@@ -23,10 +26,12 @@ export const Top3Musicas = () => {
               <div className='w-9 h-9 bg-slate-700 flex items-center justify-center rounded-full'>
                 <p className='text-xl font-bold'>{key+1}</p>
               </div>
-              <div className='flex w-full gap-2 items-center border-2 border-slate-600 p-3 rounded-xl bg-slate-700'>
-                <img className='w-16' src={musica.album.images[0].url} alt={`capa do album ${musica.album.name}`}/>
-                <p className='text-xl'>{musica.name}</p>
-              </div>
+
+            <div onClick={()=> navigate(`/album/${musica.album.id}`)} className='flex w-full gap-2 items-center border-2 border-slate-600 p-3 rounded-xl bg-slate-700 cursor-pointer hover:bg-slate-800'>
+              <img className='w-16' src={musica.album.images[0].url} alt={`capa do album ${musica.album.name}`}/>
+              <p className='text-xl'>{musica.name}</p>
+            </div>
+
             </div>
           ))
         }

@@ -12,6 +12,7 @@ export const GetTop3Musicas = (setMusicas) => {
   })
 }
 
+
 export const GetTop3Albuns = (setAlbuns) => {
   if (!auth.currentUser){
     return null
