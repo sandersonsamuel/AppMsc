@@ -34,6 +34,10 @@ export function Album(){
   const [albuns, setAlbuns] = useState(null)
   const [alerta, setAlerta] = useState(false)
 
+  const redirectNovaJanela = (link) =>{
+    open(link, '_blank')
+  }
+
   function darAlerta(){
     setAlerta(true)
     setTimeout(() => {
@@ -133,9 +137,8 @@ export function Album(){
               </div>
               <div className='flex my-2 md:flex-col justify-between h-100 items-end'>
           
-                <Link to={album.external_urls.spotify}>
-                  <i className="text-3xl sm:text-4xl fa-brands fa-spotify cursor-pointer hover:scale-110 transition hover:brightness-90"></i>
-                </Link>
+              <i onClick={()=> redirectNovaJanela(album.external_urls.spotify)} className="text-3xl sm:text-4xl fa-brands fa-spotify cursor-pointer hover:scale-110 transition hover:brightness-90"></i>
+                
 
                 <ModalAva albumInfos={album} alerta={darAlerta}/>
 
