@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import { Modal, ModalBody, Button, ModalHeader } from "flowbite-react"
+import { Modal, ModalBody, Button, ModalHeader, Alert } from "flowbite-react"
 import { AppRating } from "../Rating"
 import { databaseApp } from '../../configs/firebase'
 import { auth } from "../../configs/firebase"
 import { useNavigate } from "react-router-dom";
 import { doc, updateDoc, getDoc, setDoc, deleteField } from "firebase/firestore"
-import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { HiInformationCircle, HiOutlineExclamationCircle } from 'react-icons/hi';
 import { GetAvalAlbum } from "../GetAval"
 
 export const ModalRating = ({color, msc, album}) => {
@@ -13,6 +13,7 @@ export const ModalRating = ({color, msc, album}) => {
   const [open, setOpen] = useState(false)
   const [starAva, setStarAva] = useState(null)
   const [rating, setRating] = useState(0)
+  const [alerta, setAlerta] = useState(null)
 
   const navigate = useNavigate()
 

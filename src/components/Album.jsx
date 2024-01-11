@@ -19,7 +19,6 @@ function Alerta(){
   )
 }
 
-
 export function Album(){
 
   const { id } = useParams()
@@ -49,13 +48,17 @@ export function Album(){
   useEffect(()=>{
 
     if (albuns) {
-      Object.values(albuns).forEach(albumAva=>{
-        if (albumAva.idAlbum === albumId){
-          setAvaliacaoAlbum(albumAva)
-        }else{
-          setAvaliacaoAlbum(null)
-        }
-      })
+
+      if (Object.values(albuns).length > 0) {
+        Object.values(albuns).forEach(albumAva=>{
+          if (albumAva.idAlbum === albumId){
+            setAvaliacaoAlbum(albumAva)
+          }
+        })
+      }else{
+        setAvaliacaoAlbum(null)
+      }
+      
     }
 
   },[albuns])
