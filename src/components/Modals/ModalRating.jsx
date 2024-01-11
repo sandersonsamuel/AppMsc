@@ -6,7 +6,7 @@ import { auth } from "../../configs/firebase"
 import { useNavigate } from "react-router-dom";
 import { doc, updateDoc, getDoc, setDoc, deleteField } from "firebase/firestore"
 import { HiInformationCircle, HiOutlineExclamationCircle } from 'react-icons/hi';
-import { GetAvalAlbum } from "../GetAval"
+import { GetAvalAlbum, GetAvalMusica } from "../GetAval"
 
 export const ModalRating = ({color, msc, album}) => {
 
@@ -95,13 +95,24 @@ function DeletAlert({msc, album, setRating, CloseModal}) {
 
   const [openModal, setOpenModal] = useState(false)
   const [avaliacoes, setAvaliacoes] = useState(null)
+  const [avaliacoesMusica, setAvaliacoesMusica] = useState(null)
+
   const [isAva, setIsAva] = useState(false)
+  const [isAvaMusica, setIsAvaMusica] = useState(false)
 
   useEffect(()=>{
 
     GetAvalAlbum(setAvaliacoes)
 
   }, [])
+
+  useEffect(()=>{
+
+    GetAvalMusica(setAvaliacoesMusica)
+
+  }, [])
+
+
   useEffect(()=>{
     if (avaliacoes) {
       if (album) {
@@ -110,7 +121,18 @@ function DeletAlert({msc, album, setRating, CloseModal}) {
             setIsAva(true)
           }
         })
-        
+      }
+    }
+  },[avaliacoes])
+
+  useEffect(()=>{
+    if (avaliacoesMusica) {
+      if (album) {
+        Object.values(avaliacoesMusica).forEach((avaliacao)=>{
+          if(avaliacao.idMsc === msc.id){
+            setIsAvaMusica(true)
+          }
+        })
       }
     }
   },[avaliacoes])
@@ -137,7 +159,7 @@ function DeletAlert({msc, album, setRating, CloseModal}) {
   }
 
   return (
-    <>
+    isAvaMusica && <>
       <Button onClick={()=> setOpenModal(true)} size={'sm'} color="failure">Limpar</Button>
       <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
         <Modal.Header />
