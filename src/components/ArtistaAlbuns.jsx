@@ -79,8 +79,35 @@ export function ArtistaAlbuns() {
   }else if(albuns.length === 0){
     return(
       <>
-        <div className="justify-center p-2 md:p-10 w-full bg-gradient-to-bl from-slate-900 to-slate-950 min-h-screen text-white transition-all flex flex-col gap-5">
-          <h1 style={{overflowWrap: "break-word"}} className="text-6xl font-bold text-center w-full overflow- transition-all">{artista} não possui albuns</h1>
+        <div className="bg-gradient-to-bl from-slate-900 to-slate-950 min-h-screen text-white">
+          <div className="w-full md:p-10">
+            <div className="flex p-5 justify-between md:justify-center md:gap-8">
+
+              <div className="md:flex gap-5">
+                <AvatarEditor
+                className="border-4 border-slate-800"
+                        ref={editorRef}
+                        image={InfoArtista.images[0].url}
+                        border={0}
+                        color={[255, 255, 255, 0.6]}
+                        scale={1.2}
+                        rotate={0}
+                />
+
+                <div className="w-full flex flex-col justify-end">
+                  <h1 className="text-4xl md:text-7xl font-bold my-2">{artista}</h1>
+                  <h1 className="text-lg md:text-2xl font-bold">seguidores: {InfoArtista.followers.total.toLocaleString('pt-BR')}</h1>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <Link to={InfoArtista.external_urls.spotify}>
+                      <i className="text-3xl sm:text-5xl fa-brands fa-spotify cursor-pointer hover:scale-110 transition hover:brightness-90"></i>
+                </Link>
+              </div>
+
+            </div>
+          </div>
         </div>
       </>
     )

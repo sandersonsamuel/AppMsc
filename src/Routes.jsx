@@ -10,6 +10,7 @@ import { onAuthStateChanged } from "@firebase/auth"
 import { useEffect, useState } from "react"
 import { Atividade } from "./pages/Atividade"
 import { NavBar } from "./components/NavBar"
+import { PerfilUser } from "./pages/PerfilUser"
 
 export function AppRoutes(){
 
@@ -36,6 +37,7 @@ export function AppRoutes(){
         <Route path="/criarconta" element={<CriarConta/>}/>
         <Route path="/album/:id" element={<Album/>}/>
         <Route path="artista/:id" element={<ArtistaAlbuns/>}/>
+        <Route path="user/" element={<PerfilUser/>}/>
       </Routes>
     </Router>
   )

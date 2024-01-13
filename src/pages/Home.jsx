@@ -22,6 +22,7 @@ export function Home(){
   return(
     <>
       <div className="py-5 bg-gradient-to-bl from-slate-900 to-slate-950 w-full min-h-screen text-white pb-16">
+        
         <AlbumGirando/>
 
         <p className="text-3xl md:text-5xl text-center font-thin m-3">Compartilhe a sua crítica sobre os discos que escutou.</p>

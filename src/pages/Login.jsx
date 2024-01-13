@@ -2,21 +2,14 @@ import { useState } from "react"
 import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword} from "firebase/auth"
 import { auth, databaseApp } from "../configs/firebase"
 import { Link, Navigate } from "react-router-dom"
-import { addDoc} from "firebase/firestore"
+import { useNavigate } from "react-router-dom"
 
 export function Login(){
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [logged, setLogged] = useState(null)
   const [erro, setErro] = useState(null)
-
-  if (logged){
-
-    return(
-      <Navigate to={'/'}/>
-    )
-  }
+  const navigate = useNavigate()
 
   const provider = new GoogleAuthProvider()
 
@@ -25,7 +18,7 @@ export function Login(){
     event.preventDefault()
 
     signInWithEmailAndPassword(auth, email, password).then((response)=>{
-      setLogged(true)
+      navigate('/')
     }).catch((error)=>{
       console.log(error)
       if (error.message === 'Firebase: Error (auth/invalid-credential).'){
@@ -36,7 +29,7 @@ export function Login(){
 
   function sigInGoogle(){
     signInWithPopup(auth, provider).then(result=>{
-      setLogged(true)
+      navigate('/')
     }).catch(error=> {
       console.log(error)
       

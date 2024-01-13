@@ -4,6 +4,9 @@ import { PerfilMin } from "./PerfilMin";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "@firebase/auth";
 import { auth } from "../configs/firebase";
+import { SlideDown } from 'react-slidedown';
+import 'react-slidedown/lib/slidedown.css';
+import '../App.css'
 
 export function NavBar(){
 
@@ -35,7 +38,7 @@ export function NavBar(){
 
   return(
     <>
-      <nav className="bg-gradient-to-br text-white to-slate-900 from-slate-950 p-3 md:p-5 flex flex-col-reverse md:flex-row items-center justify-between gap-2 flex-wrap">
+      <nav className="text-white bg-neutral-950 p-3 md:p-5 flex flex-col-reverse md:flex-row items-center justify-between gap-2 flex-wrap">
         <div className="hidden md:block"><Link to={'/'}><h1 className="text-2xl font-bold">MelodyMingler.</h1></Link></div>
 
         <ul className="hidden lg:flex md:gap-5 gap-2 m-5 md:m-0 w-full md:w-auto justify-center">
@@ -50,7 +53,7 @@ export function NavBar(){
             id="pesqInput"
             onChange={(e)=> setPesquisa(e.target.value)}
             type="text" 
-            className="w-52 xl:w-64 h-8 rounded-2xl outline-none bg-slate-800 px-4 focus:bg-slate-700 transition-all"/>
+            className="w-52 xl:w-64 h-8 rounded-2xl outline-none bg-neutral-800 px-4 focus:bg-neutral-700 transition-all"/>
           <label htmlFor="pesqInput"><Link to={pesquisa.length > 0 ? `/pesquisa/${pesquisa}`: null}><i className="fa-solid fa-magnifying-glass hover:scale-110 cursor-pointer transition"></i></Link></label>
         </form>
 
@@ -70,12 +73,12 @@ export function NavBar(){
         </div>
         
       </nav>
-      { menu &&
-      <ul className="bg-slate-800 text-white lg:hidden md:gap-5 gap-2 p-5 md:m-0 md:w-auto justify-center flex flex-col w-100">
-        {logged && <Link to={"/my"}><li className="text-xl cursor-pointer lg:text-lg font-bold hover:opacity-70 text-center" >Minhas Avaliações</li></Link>}
-        <li className="cursor-pointer text-xl lg:text-lg font-bold hover:opacity-70 text-center" >Albuns do Momento</li>
-      </ul>
-      }
+      <SlideDown closed={menu} className={"my-dropdown-slidedown"}>
+        <ul className="menu bg-neutral-950 text-white lg:hidden md:gap-5 gap-2 p-5 md:m-0 md:w-auto justify-center flex flex-col md:flex-row w-100 h-24 items-center">
+          {logged && <Link to={"/my"}><li className="text-xl cursor-pointer lg:text-lg font-bold hover:opacity-70 text-center" >Minhas Avaliações</li></Link>}
+          <li className="cursor-pointer text-xl lg:text-lg font-bold hover:opacity-70 text-center" >Albuns do Momento</li>
+        </ul>
+      </SlideDown>
     </>
   )
 }

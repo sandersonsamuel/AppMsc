@@ -10,8 +10,6 @@ export const ReviewAlbum = ({review, complete}) => {
   const [avaliacoesDoAlbum, setAvaliacoesDoAlbum] = useState(null)
   const [ratingAlbum, setRatingAlbum] = useState(0)
 
-  console.log(review);
-
   useEffect(()=>{
     if (avaliacoesDoAlbum) {
       let ratingsMsc = 0
@@ -40,16 +38,31 @@ export const ReviewAlbum = ({review, complete}) => {
       <Accordion className='mt-5'>
         <Accordion.Panel>
         <Accordion.Title>
-          <div className='flex gap-2 items-center'>
-            {complete && 
-              <Link to={`/album/${review.idAlbum}`}>
-              <i className="text-white fa-solid fa-arrow-up-right-from-square mr-1 hover:scale-125"></i>
-            </Link>
-            }
+          <div className='flex flex-col md:flex-row gap-2'>
             
-            {complete && <img className='w-16' src={review.InfoAlbum.images[0].url} alt={"Capa do album "+ review.nameAlbum} />}
+            <div className='flex w-full items-center gap-5 md:gap-2'>
+              {complete && 
+                <Link to={`/album/${review.idAlbum}`}>
+                <i className="text-white fa-solid fa-arrow-up-right-from-square mr-1 hover:scale-125"></i>
+              </Link>
+              }
+              
+              {complete && <img className='w-12' src={review.InfoAlbum.images[0].url} alt={"Capa do album "+ review.nameAlbum} />}
 
-            <p className='text-wrap'>{!complete ? 'Review do Album' : review.nameAlbum}</p>
+              {complete && 
+                <Rating>
+                  <RatingStar/>
+                  {ratingAlbum.toFixed(2)}
+                </Rating>}
+
+              <div className='hidden md:block'>
+                <p className='text-wrap'>{!complete ? 'Review do Album' : review.nameAlbum}</p>
+              </div>
+            </div>
+
+            <div className='md:hidden'>
+              <p className='text-wrap text-center'>{!complete ? 'Review do Album' : review.nameAlbum}</p>
+            </div>
 
             {!complete && 
             <Rating>
@@ -57,15 +70,14 @@ export const ReviewAlbum = ({review, complete}) => {
               {ratingAlbum.toFixed(2)}
             </Rating>}
 
+            
+
           </div>
+          
           </Accordion.Title>
         <Accordion.Content>
           <div className='w-full flex items-center justify-center mb-3'>
-          {complete && 
-              <Rating>
-                <RatingStar/>
-                {ratingAlbum.toFixed(2)}
-              </Rating>}
+          
           </div>
           <div className=''>
             <div className='justify-center flex items-center gap-1'>

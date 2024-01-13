@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signOut, updateProfile } from "firebase/auth"
 import { auth, databaseApp} from "../configs/firebase"
-import { Link, Navigate } from "react-router-dom"
-import { collection, doc, setDoc } from "firebase/firestore"
+import { Link, useNavigate } from "react-router-dom"
+
 
 export function CriarConta(){
 
@@ -10,21 +10,14 @@ export function CriarConta(){
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [erro, setErro] = useState(null)
-  const [logged, setLogged] = useState(null)
+
+  const navigate = useNavigate()
 
   const provider = new GoogleAuthProvider()
 
-  if (logged){
-
-    return(
-      <Navigate to={'/'}/>
-    )
-  }
-
   function sigInGoogle(){
     signInWithPopup(auth, provider).then(result=>{
-      setLogged(true)
-      criarDocumento()
+      navigate('/')
     }).catch(error=> console.log(error))
   }
 
@@ -38,21 +31,19 @@ export function CriarConta(){
       createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential)=>{
         const user = userCredential.user
-        criarDocumento()
 
-        setLogged(true)
-        criarDocumento()
+        updateProfile(user, { displayName: userName })
+
         setEmail('')
         setUserName('')
         setPassword('')
 
-        updateProfile(user, { displayName: userName })
-        console.log(user)
+        navigate('/')
         
       }).catch((error)=>{
         console.log('não foi possivel criar a conta ' + error)
         if(error.message === 'Firebase: Error (auth/email-already-in-use).'){
-          setErro("Já possui uma conta cadastrada nesse Email.")
+          setErro("Já possui uma conta cadastrada neste Email.")
         }
       })
     }

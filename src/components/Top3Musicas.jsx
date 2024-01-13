@@ -23,12 +23,12 @@ export const Top3Musicas = () => {
         {top3Musicas && 
           Object.values(top3Musicas).map((musica, key)=>(
             <div key={key} className='flex items-center gap-2'>
-              <div className='w-9 h-9 bg-slate-700 flex items-center justify-center rounded-full'>
+              <div className='md:w-9 md:h-9 md:bg-slate-700 flex items-center justify-center rounded-full'>
                 <p className='text-xl font-bold'>{key+1}</p>
               </div>
 
             <div onClick={()=> navigate(`/album/${musica.album.id}`)} className='flex w-full gap-2 items-center border-2 border-slate-600 p-3 rounded-xl bg-slate-700 cursor-pointer hover:bg-slate-800'>
-              <img className='w-16' src={musica.album.images[0].url} alt={`capa do album ${musica.album.name}`}/>
+              <img className='w-12 md:w-16' src={musica.album.images[0].url} alt={`capa do album ${musica.album.name}`}/>
               <p className='text-xl'>{musica.name}</p>
             </div>
 

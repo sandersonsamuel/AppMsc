@@ -21,8 +21,8 @@ export function UltimasAva(){
           <h1 className="text-2xl font-semibold mb-4">Albuns Avaliados</h1>
           <div className="w-full">
           {avaliacoes && 
-            Object.values(avaliacoes).map((avaliacao)=>(
-              <ReviewAlbum review={avaliacao} complete={true}/>
+            Object.values(avaliacoes).map((avaliacao, key)=>(
+              <ReviewAlbum key={key} review={avaliacao} complete={true}/>
             ))
           }
           </div>
