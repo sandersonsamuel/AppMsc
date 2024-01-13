@@ -1,5 +1,6 @@
 import { doc, onSnapshot } from "firebase/firestore";
 import { auth, databaseApp } from "../configs/firebase";
+import { useState } from "react";
 
 export const GetAvalAlbum = (setAvaliacoesUser) => {
   if (!auth.currentUser) {

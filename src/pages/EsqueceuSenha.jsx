@@ -1,15 +1,12 @@
 import { useState } from "react"
-import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail} from "firebase/auth"
-import { auth, databaseApp } from "../configs/firebase"
-import { Link, Navigate } from "react-router-dom"
+import { GoogleAuthProvider, sendPasswordResetEmail} from "firebase/auth"
+import { auth} from "../configs/firebase"
 import { useNavigate } from "react-router-dom"
 
 export const EsqueceuSenha = () => {
 
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
   const [erro, setErro] = useState(null)
-  const navigate = useNavigate()
 
   const provider = new GoogleAuthProvider()
 
