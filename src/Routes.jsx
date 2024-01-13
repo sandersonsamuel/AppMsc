@@ -38,7 +38,7 @@ export function AppRoutes(){
         <Route path="/criarconta" element={<CriarConta/>}/>
         <Route path="/album/:id" element={<Album/>}/>
         <Route path="artista/:id" element={<ArtistaAlbuns/>}/>
-        <Route path="user/" element={<PerfilUser/>}/>
+        <Route path="user/" element={user ? <PerfilUser/> : <Home/>}/>
         <Route path="esqueceu/" element={<EsqueceuSenha/>}/>
       </Routes>
     </Router>

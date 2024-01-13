@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import 'firebase/firestore';
 import { useEffect, useState } from "react";
 import { GetAvalMusica } from "../components/GetAval";
+import { ClipLoader } from "react-spinners";
 
 export const PerfilUser = () => {
 
@@ -16,11 +17,6 @@ export const PerfilUser = () => {
   const [qteAvas, setQteAvas] = useState(0)
 
   useEffect(()=>{
-
-    if (!auth.currentUser){
-      navigate('/')
-    }
-
     GetAvalMusica(setAvaliacoes)
   },[])
 
