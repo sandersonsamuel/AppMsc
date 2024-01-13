@@ -11,6 +11,7 @@ import { useEffect, useState } from "react"
 import { Atividade } from "./pages/Atividade"
 import { NavBar } from "./components/NavBar"
 import { PerfilUser } from "./pages/PerfilUser"
+import { EsqueceuSenha } from "./pages/EsqueceuSenha"
 
 export function AppRoutes(){
 
@@ -38,6 +39,7 @@ export function AppRoutes(){
         <Route path="/album/:id" element={<Album/>}/>
         <Route path="artista/:id" element={<ArtistaAlbuns/>}/>
         <Route path="user/" element={<PerfilUser/>}/>
+        <Route path="esqueceu/" element={<EsqueceuSenha/>}/>
       </Routes>
     </Router>
   )

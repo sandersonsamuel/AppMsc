@@ -73,6 +73,8 @@ export function Login(){
             value={"Entrar"}
           />
 
+          
+
           <button
             type="button"
             onClick={sigInGoogle}
@@ -82,9 +84,19 @@ export function Login(){
             <p>Entre com o Google</p>
           </button>
 
-          <Link to={'/criarconta'} className="text-center text-blue-600 cursor-pointer">
-            Não tenho uma conta
-          </Link>
+          <div className="flex flex-col md:flex-row justify-between">
+            
+            <Link to={'/criarconta'} className="text-center text-blue-600 cursor-pointer">
+              Não tenho uma conta
+            </Link>
+            
+            <Link to={'/esqueceu'} className="text-center text-red-600 cursor-pointer">
+              Esqueci a senha
+            </Link>
+
+            
+          </div>
+
           <p className="text-center text-red-500">{erro}</p>
         </form>
         

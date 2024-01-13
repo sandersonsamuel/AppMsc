@@ -5,8 +5,9 @@ import { databaseApp } from '../../configs/firebase'
 import { auth } from "../../configs/firebase"
 import { useNavigate } from "react-router-dom";
 import { doc, updateDoc, getDoc, setDoc, deleteField } from "firebase/firestore"
-import { HiInformationCircle, HiOutlineExclamationCircle } from 'react-icons/hi';
+import {HiOutlineExclamationCircle } from 'react-icons/hi';
 import { GetAvalAlbum, GetAvalMusica } from "../GetAval"
+import { Timestamp } from "firebase/firestore"
 
 export const ModalRating = ({color, msc, album}) => {
 
@@ -45,7 +46,8 @@ export const ModalRating = ({color, msc, album}) => {
             idAlbum: album.id,
             nota: rating,
             idMsc: msc.id,
-            mscInfos: msc
+            mscInfos: msc,
+            date: Timestamp.now()
 
           }
         }
@@ -58,7 +60,8 @@ export const ModalRating = ({color, msc, album}) => {
           idAlbum: album.id,
           nota: rating,
           idMsc: msc.id,
-          mscInfos: msc
+          mscInfos: msc,
+          date: Timestamp.now()
 
         }
       });
