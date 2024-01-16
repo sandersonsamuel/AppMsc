@@ -48,7 +48,7 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
     DomToImage.toPng(divRef.current)
       .then(function (dataUrl) {
         let link = document.createElement('a');
-        link.download = 'image.png';
+        link.download = `AvaliacaoDoAlbum${review.nameAlbum}MelodyMingler`
         link.href = dataUrl;
         link.click();
         divRef.current.style.display = 'none';
@@ -87,6 +87,7 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
               <Button onClick={convertDivToImage} className="my-2" color="gray">Baixar uma Imagem da sua Avaliação</Button>
 
               <div ref={divRef} className="hidden flex-col justify-center p-40 border-4 border-slate-600 w-[1500px] h-[1500px] bg-slate-800 items-center gap-2">
+                <p className="text-7xl font-bold mb-10">MelodyMingler</p>
                 <img className="w-[45rem] border-8 border-slate-600 rounded-xl" src={review.InfoAlbum.images[0].url} alt="" />
                 <p className="font-semibold text-7xl text-center">{review.nameAlbum}</p>
                 <p className="text-5xl">by: {review.InfoAlbum.artists[0].name}</p>
