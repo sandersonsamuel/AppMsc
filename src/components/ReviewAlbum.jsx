@@ -1,8 +1,9 @@
-import { Rating, RatingStar } from 'flowbite-react'
+import { Modal, Rating, RatingStar } from 'flowbite-react'
 import { Accordion } from 'flowbite-react'
 import { useEffect, useState } from 'react';
 import {GetAvalMusica } from './GetAval';
 import { Link } from 'react-router-dom';
+import { ModalShare } from './Modals/ModalShare';
 
 export const ReviewAlbum = ({review, complete}) => {
 
@@ -42,16 +43,13 @@ export const ReviewAlbum = ({review, complete}) => {
 
           <div className='flex gap-5 items-center justify-center'>
 
-            <a className='fa-brands fa-twitter text-lg hover:scale-125' href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('Minha avaliação do álbum ' + `"${review.nameAlbum}"` + ` foi de ${ratingAlbum.toFixed(2)}⭐` + ". Avalie e compartilhe sua opinião em: " + `https://MelodyMingler.vercel.app/album/${review.idAlbum}`)}`} target="_blank"></a>
 
             <div className='flex flex-col md:flex-row gap-2'>
               
               <div className='flex w-full items-center gap-5 md:gap-2'>
-                {complete && 
-                  <Link to={`/album/${review.idAlbum}`}>
-                  <i className="text-white fa-solid fa-arrow-up-right-from-square mr-1 hover:scale-125"></i>
-                </Link>
-                }
+                
+              <ModalShare review={review} avaliacoesDoAlbum={avaliacoesDoAlbum} ratingAlbum={ratingAlbum}/>
+
                 
                 {complete && <img className='w-12' src={review.InfoAlbum.images[0].url} alt={"Capa do album "+ review.nameAlbum} />}
 
