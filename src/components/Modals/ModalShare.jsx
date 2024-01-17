@@ -13,6 +13,7 @@ function Alerta() {
 }
 
 export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
+
   const divRef = useRef();
 
   const [openModal, setOpenModal] = useState(false);
@@ -21,7 +22,6 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
   const textShare = encodeURIComponent(`Minha avaliação do álbum "${review.nameAlbum}" foi de ${ratingAlbum.toFixed(2)}⭐. Avalie e compartilhe sua opinião em: https://MelodyMingler.vercel.app/album/${review.idAlbum}`);
   const textShareWpp = encodeURIComponent(`Minha avaliação do álbum "${review.nameAlbum}" foi de ${ratingAlbum.toFixed(2)} estrelas. Avalie e compartilhe sua opinião em: https://MelodyMingler.vercel.app/album/${review.idAlbum}`);
 
-  let ok = false
 
   const handleShowAlert = () => {
     setAlerta(true);
@@ -73,7 +73,7 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
         <ModalHeader>Compartilhar Review do Album</ModalHeader>
         <ModalBody>
           <div className="text-white flex flex-col items-center">
-            <div className="text-4xl md:text-6xl flex text-slate-300 justify-center gap-3 my-1">
+            <div className="text-5xl md:text-6xl flex text-slate-300 justify-center gap-3 my-1">
               <a className='fa-brands fa-square-twitter hover:scale-110 transition' href={`https://twitter.com/intent/tweet?text=${textShare}`} target="_blank"></a>
               <a className="fa-brands fa-square-whatsapp hover:scale-110 transition" href={`https://wa.me/?text=${textShareWpp}`} target="_blank"></a>
             </div>
@@ -92,14 +92,14 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
                 <p className="text-7xl font-bold mb-10">MelodyMingler</p>
                 <img className="w-[45rem] border-8 border-slate-600 rounded-xl" src={review.InfoAlbum.images[0].url} alt="" />
                 <p className="font-semibold text-7xl text-center">{review.nameAlbum}</p>
-                <p className="text-5xl">by: {review.InfoAlbum.artists[0].name}</p>
+                <p className="text-4xl">by: {review.InfoAlbum.artists[0].name}</p>
 
                 <div className="flex font-bold justify-center items-center text-5xl my-1">
                   <i className="fa-solid fa-star text-[#E3A008]"></i>
                   <p>{ratingAlbum.toFixed(2)}</p>
                 </div>
                 
-                <p className="text-justify mt-2 text-4xl">{review.avaliacao}</p>
+                <p className="text-justify mt-2 text-4xl font-thin">{review.avaliacao}</p>
               </div>
 
             </div>
