@@ -21,6 +21,8 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
   const textShare = encodeURIComponent(`Minha avaliação do álbum "${review.nameAlbum}" foi de ${ratingAlbum.toFixed(2)}⭐. Avalie e compartilhe sua opinião em: https://MelodyMingler.vercel.app/album/${review.idAlbum}`);
   const textShareWpp = encodeURIComponent(`Minha avaliação do álbum "${review.nameAlbum}" foi de ${ratingAlbum.toFixed(2)} estrelas. Avalie e compartilhe sua opinião em: https://MelodyMingler.vercel.app/album/${review.idAlbum}`);
 
+  let ok = false
+
   const handleShowAlert = () => {
     setAlerta(true);
     setTimeout(() => {
@@ -72,8 +74,8 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
         <ModalBody>
           <div className="text-white flex flex-col items-center">
             <div className="text-4xl md:text-6xl flex text-slate-300 justify-center gap-3 my-1">
-              <a className='fa-brands fa-square-twitter hover:scale-125 transition' href={`https://twitter.com/intent/tweet?text=${textShare}`} target="_blank"></a>
-              <a className="fa-brands fa-square-whatsapp hover:scale-125 transition" href={`https://wa.me/?text=${textShareWpp}`} target="_blank"></a>
+              <a className='fa-brands fa-square-twitter hover:scale-110 transition' href={`https://twitter.com/intent/tweet?text=${textShare}`} target="_blank"></a>
+              <a className="fa-brands fa-square-whatsapp hover:scale-110 transition" href={`https://wa.me/?text=${textShareWpp}`} target="_blank"></a>
             </div>
             <div className="w-full flex flex-col items-center">
               <div className="w-full h-12 rounded-full my-2 bg-neutral-800 flex flex-col justify-center md:items-center px-5">

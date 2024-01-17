@@ -152,7 +152,7 @@ export function ModalAva({albumInfos, alerta}){
           <Modal.Footer>
             <div className="flex w-full justify-between">
               <div className="flex gap-2">
-                <Button size={'sm'} onClick={handleSubmit}>Enviar</Button>
+                <Button size={'sm'} onClick={handleSubmit} disabled={textAva.length > 350}>Enviar</Button>
                 <Button size={'sm'} color="gray" onClick={handleClose}>Cancelar</Button>
               </div>
               <AlertDeleteAva setClodeModal={setOpen} albumInfos={albumInfos}/>
