@@ -51,7 +51,7 @@ export const ReviewAlbum = ({review, complete}) => {
               <ModalShare review={review} avaliacoesDoAlbum={avaliacoesDoAlbum} ratingAlbum={ratingAlbum}/>
 
                 
-                {complete && <img className='w-12' src={review.InfoAlbum.images[0].url} alt={"Capa do album "+ review.nameAlbum} />}
+                {complete && <Link to={`/album/${review.idAlbum}`}><img className='w-12 border-2 border-slate-400 rounded-md' src={review.InfoAlbum.images[0].url} alt={"Capa do album "+ review.nameAlbum} /></Link>}
 
                 {complete && 
                   <Rating>
