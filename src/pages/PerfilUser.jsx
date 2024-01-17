@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import 'firebase/firestore';
 import { useEffect, useState } from "react";
 import { GetAvalMusica } from "../components/GetAval";
-import { ClipLoader } from "react-spinners";
+import { updateProfile } from "firebase/auth";
 
 export const PerfilUser = () => {
 
@@ -69,13 +69,15 @@ export const PerfilUser = () => {
           </div>
         </div>
 
-      <div className="w-10/12 h-96 p-10 py-7 bg-gray-800 text-white flex flex-col rounded-lg">
+      <div className="w-10/12 p-4 md:p-10 md:py-7 bg-gray-800 text-white flex flex-col rounded-lg">
         <nav className="w-full">
           <ul className="flex flex-col items-center md:flex-row md:items-start justify-between text-xl font-semibold border-b-2 border-gray-500">
-            <li>Informações</li>
-            <li>Alterar Informações</li>
+            <li className="cursor-pointer text-center">Alterar Informações</li>
           </ul>
         </nav>
+
+        <AlterarInformacoes/>
+        
       </div>
 
       </div>
@@ -83,4 +85,37 @@ export const PerfilUser = () => {
   }
 
   
+}
+
+const AlterarInformacoes = () =>{
+
+  const [userName, setUserName] = useState(null)
+
+  const handleUserName = (event) =>{
+
+    setUserName(event.target.value)
+
+  }
+
+  const alterarDisplayName = () =>{
+    updateProfile(auth.currentUser, {
+      displayName: userName
+    }).then(()=>{
+      console.log('perfil atualizado!')
+    }).catch((error)=>{
+      console.log(error)
+    })
+  }
+
+  return (
+    <>
+      <div className="w-full h-full py-5 flex flex-col gap-2">
+        <div className="w-full flex gap-2">
+          <input onChange={handleUserName} placeholder={auth.currentUser.displayName} className="h-8 bg-slate-800 rounded-md w-4/5" type="text" />
+          <button onClick={alterarDisplayName} className="px-3 bg-blue-600 rounded-md">Alterar</button>
+        </div>
+        <button className="px-5 py-1 rounded-md bg-red-600">Redefinir Senha</button>
+      </div>
+    </>
+  )
 }
