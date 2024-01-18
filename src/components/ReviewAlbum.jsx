@@ -40,7 +40,6 @@ export const ReviewAlbum = ({review, complete}) => {
         <Accordion.Panel>
         <Accordion.Title>
           
-
           <div className='flex gap-5 items-center justify-center'>
 
 
