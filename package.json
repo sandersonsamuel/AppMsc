@@ -46,6 +46,7 @@
     "react-tooltip": "^5.25.1",
     "react-transition-group": "^4.4.5",
     "react-typist": "^2.0.5",
+    "sitemap": "^7.1.1",
     "styled-components": "^6.1.6",
     "typewriter-effect": "^2.21.0"
   },
