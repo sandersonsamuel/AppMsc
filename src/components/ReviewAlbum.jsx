@@ -36,7 +36,7 @@ export const ReviewAlbum = ({review, complete}) => {
 
   if (review) {
     return (
-      <Accordion className='mt-5'>
+      <Accordion className='mt-5' collapseAll>
         <Accordion.Panel>
         <Accordion.Title>
           

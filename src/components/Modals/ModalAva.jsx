@@ -3,7 +3,6 @@ import { AppRating } from "../Rating";
 import { Modal, Button, ModalBody, Label, Textarea } from "flowbite-react";
 import { auth } from "../../configs/firebase";
 import { useNavigate } from "react-router-dom";
-import { useRatingAlbum } from "../RatingAlbum";
 import { deleteField, doc, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { databaseApp } from "../../configs/firebase";
 import { Timestamp } from "firebase/firestore";

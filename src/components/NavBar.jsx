@@ -60,10 +60,12 @@ export function NavBar(){
             </ul>
             
             <div className="md:hidden flex gap-3 items-center">
-              <i 
+              {logged && 
+                <i 
                 className="fa-solid fa-bars text-xl cursor-pointer"
                 onClick={()=> setMenu(!menu)}
               ></i>
+              }
               <Link className="md:hidden" to={'/'}><h1 className=" text-2xl font-bold">MelodyMingler.</h1></Link>
             </div>
 
@@ -93,6 +95,7 @@ export function NavBar(){
         </div>
 
         { menuUl &&
+          logged &&
             <ul className="text-white md:flex gap-20 lg:hidden md:justify-center transition-all">
               {logged && <Link to={"/my"}><li className="text-xl cursor-pointer lg:text-lg font-bold hover:opacity-70 text-center" >Minha Atividade</li></Link>}
               <li className="cursor-pointer text-xl lg:text-lg font-bold hover:opacity-70 text-center" >Albuns do Momento</li>

@@ -17,7 +17,7 @@ export function UltimasAva(){
 
   return(
     <>
-      <div className="w-11/12 flex flex-col items-center h-[25rem] p-5 bg-slate-800 rounded-xl overflow-auto">
+      <div className="w-11/12 flex flex-col items-center h-[20rem] p-5 bg-slate-800 rounded-xl overflow-auto">
           <h1 className="text-2xl font-semibold mb-4">Albuns Avaliados</h1>
           <div className="w-full">
           {avaliacoes && 

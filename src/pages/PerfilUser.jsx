@@ -1,9 +1,9 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { auth } from "../configs/firebase"
 import { useNavigate } from "react-router-dom"
 import 'firebase/firestore';
 import { useEffect, useState } from "react";
-import { GetAvalMusica } from "../components/GetAval";
+import { GetAvalAlbum, GetAvalMusica } from "../components/GetAval";
 import { updateProfile } from "firebase/auth";
 
 export const PerfilUser = () => {
@@ -12,13 +12,50 @@ export const PerfilUser = () => {
   const navigate = useNavigate()
 
   const [avaliacoes, setAvaliacoes] = useState(null)
+  const [avaliacoesAlbum, setAvaliacoesAlbum] = useState(null)
+
   const [avaliacoesUser, setAvaliacoesUser] = useState(null)
+  const [avaliacoesUserAlbum, setAvaliacoesUserAlbum] = useState(null)
   
   const [qteAvas, setQteAvas] = useState(0)
+  const [qteAvasAlbum, setQteAvasAlbum] = useState(0)
+
+  const [userName, setUserName] = useState('')
+
+  const handleUserName = (event) =>{
+    setUserName(event.target.value)
+  }
+
+  const alterarDisplayName = () =>{
+    if (userName.length > 1) {
+      updateProfile(auth.currentUser, {
+        displayName: userName
+      }).then(()=>{
+        setUserName('')
+      }).catch((error)=>{
+        console.log(error)
+      })
+    }
+  }
 
   useEffect(()=>{
     GetAvalMusica(setAvaliacoes)
+    GetAvalAlbum(setAvaliacoesAlbum)
   },[])
+
+  useEffect(()=>{
+    let avas = []
+    if (avaliacoesAlbum){
+      Object.values(avaliacoesAlbum).forEach((avaliacao)=>{
+        if (avaliacao.idUser == auth.currentUser.uid){
+          avas.push(avaliacao)
+        }
+      })
+      setAvaliacoesUserAlbum(avas)
+    }else{
+      setAvaliacoesUserAlbum(null)
+    }
+  }, [avaliacoesAlbum])
 
   useEffect(()=>{
     let avas = []
@@ -39,6 +76,12 @@ export const PerfilUser = () => {
       setQteAvas(Object.values(avaliacoesUser).length)
     }
   },[avaliacoesUser])
+
+  useEffect(()=>{
+    if(avaliacoesUserAlbum){
+      setQteAvasAlbum(Object.values(avaliacoesUserAlbum).length)
+    }
+  },[avaliacoesUserAlbum])
   
 
   if (auth.currentUser){
@@ -61,7 +104,7 @@ export const PerfilUser = () => {
 
               <div className="md:flex my-2 gap-5">
                 <p className="text-center md:text-start text-sm md:text-md">Musicas Avaliadas: {qteAvas}</p>
-                <p className="text-center md:text-start text-sm md:text-md">Albuns Avaliados: {'...'}</p>
+                <p className="text-center md:text-start text-sm md:text-md">Albuns Avaliados: {qteAvasAlbum}</p>
               </div>
 
             </div>
@@ -69,53 +112,25 @@ export const PerfilUser = () => {
           </div>
         </div>
 
-      <div className="w-10/12 p-4 md:p-10 md:py-7 bg-gray-800 text-white flex flex-col rounded-lg">
+      <div className="w-10/12 md:w-1/2 p-4 md:p-10 md:py-7 bg-gray-800 text-white flex flex-col rounded-lg">
+        
         <nav className="w-full">
           <ul className="flex flex-col items-center md:flex-row md:items-start justify-between text-xl font-semibold border-b-2 border-gray-500">
-            <li className="cursor-pointer text-center">Alterar Informações</li>
+            <li className="text-center">Alterar Informações</li>
           </ul>
         </nav>
 
-        <AlterarInformacoes/>
+        <div className="w-full h-full py-5 flex flex-col gap-2">
+          <div className="w-full flex gap-2 justify-between">
+            <input value={userName} onChange={handleUserName} placeholder={auth.currentUser.displayName} className="h-8 bg-slate-800 rounded-md w-full" type="text" />
+            <button disabled={userName.length <= 0} onClick={alterarDisplayName} className="px-3 bg-blue-600 rounded-md">Alterar</button>
+          </div>
+          <Link className="w-full flex justify-center" to={"/esqueceu/"}><button className="px-5 py-1 rounded-md bg-red-600 w-full lg:w-1/2">Redefinir Senha</button></Link>
+        </div>
         
       </div>
 
       </div>
     )
   }
-
-  
-}
-
-const AlterarInformacoes = () =>{
-
-  const [userName, setUserName] = useState(null)
-
-  const handleUserName = (event) =>{
-
-    setUserName(event.target.value)
-
-  }
-
-  const alterarDisplayName = () =>{
-    updateProfile(auth.currentUser, {
-      displayName: userName
-    }).then(()=>{
-      console.log('perfil atualizado!')
-    }).catch((error)=>{
-      console.log(error)
-    })
-  }
-
-  return (
-    <>
-      <div className="w-full h-full py-5 flex flex-col gap-2">
-        <div className="w-full flex gap-2">
-          <input onChange={handleUserName} placeholder={auth.currentUser.displayName} className="h-8 bg-slate-800 rounded-md w-4/5" type="text" />
-          <button onClick={alterarDisplayName} className="px-3 bg-blue-600 rounded-md">Alterar</button>
-        </div>
-        <button className="px-5 py-1 rounded-md bg-red-600">Redefinir Senha</button>
-      </div>
-    </>
-  )
 }
