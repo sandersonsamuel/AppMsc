@@ -4,6 +4,9 @@ import { HiInformationCircle } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import DomToImage from "dom-to-image";
 
+import FundoAva44 from '../../assets/FundoMMAvaliação44@2x.png'
+import FundoAva169 from '../../assets/FundoMMAvaliação.png'
+
 function Alerta() {
   return (
     <Alert style={{ zIndex: 9999 }} className='mb-5 fixed top-2 right-2' color="success" icon={HiInformationCircle}>
@@ -14,7 +17,7 @@ function Alerta() {
 
 export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
 
-  const divRef = useRef();
+  const divRef = useRef()
 
   const [openModal, setOpenModal] = useState(false);
   const [alerta, setAlerta] = useState(null);
@@ -44,8 +47,19 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
     setOpenModal(true);
   };
 
-  const convertDivToImage = () => {
+  const convertDivToImage = (w, h) => {
     divRef.current.style.display = 'flex';
+
+    divRef.current.style.width = `${w}px`
+    divRef.current.style.height = `${h}px`
+
+    if(h == 1500){
+      divRef.current.style.backgroundImage = `url('${FundoAva44}')`
+    }else{
+      divRef.current.style.backgroundImage = `url('${FundoAva169}')`
+    }
+
+    
 
     DomToImage.toPng(divRef.current)
       .then(function (dataUrl) {
@@ -86,9 +100,22 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
                 <Link to={`http://melodymingler.vercel.app/album/${review.idAlbum}`}><Button color="gray">Seguir para o link</Button></Link>
               </div>
               
-              <Button onClick={convertDivToImage} className="my-2" color="gray">Baixar uma Imagem da sua Avaliação</Button>
+              <div className="w-full flex items-center flex-col m-2 bg-slate-600 p-3 rounded-lg">
+                <p className="text-center text-xl font-bold">Baixar uma Imagem da sua Avaliação</p>
+                <div className="flex flex-col md:flex-row md:gap-2">
+                  <button
+                  onClick={()=> convertDivToImage(1080, 1920)} 
+                  className="my-2 px-3 p-2 rounded-md border border-gray-400 transition-colors hover:bg-cyan-600 duration-500"
+                  >Imagem 16:9</button>
+                  
+                  <button
+                  onClick={()=> convertDivToImage(1500, 1500)} 
+                  className="my-2 px-3 p-2 rounded-md border border-gray-400 transition-colors hover:bg-cyan-600 duration-500"
+                  >Imagem 4:4</button>
+                </div>
+              </div>
 
-              <div ref={divRef} className="hidden flex-col justify-center p-40 border-4 border-slate-800 w-[1500px] h-[1500px] bg-gradient-to-bl from-slate-900 to-slate-950 items-center gap-2">
+              <div ref={divRef} className={`hidden flex-col justify-center p-40 border-4 border-slate-800 items-center gap-2`}>
                 <p className="text-7xl font-bold mb-10">MelodyMingler</p>
                 <img className="w-[45rem] border-8 border-slate-700 rounded-xl" src={review.InfoAlbum.images[0].url} alt="" />
                 <p className="font-semibold text-7xl text-center">{review.nameAlbum}</p>

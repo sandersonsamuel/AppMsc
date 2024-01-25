@@ -125,7 +125,7 @@ export const PerfilUser = () => {
             <input value={userName} onChange={handleUserName} placeholder={auth.currentUser.displayName} className="h-8 bg-slate-800 rounded-md w-full" type="text" />
             <button disabled={userName.length <= 0} onClick={alterarDisplayName} className="px-3 bg-blue-600 rounded-md">Alterar</button>
           </div>
-          <Link className="w-full flex justify-center" to={"/esqueceu/"}><button className="px-5 py-1 rounded-md bg-red-600 w-full lg:w-1/2">Redefinir Senha</button></Link>
+          <Link className="w-full flex justify-center" to={"/esqueceu/"}><button className="px-5 py-1 rounded-md bg-red-600 w-full lg:w-52">Redefinir Senha</button></Link>
         </div>
         
       </div>
