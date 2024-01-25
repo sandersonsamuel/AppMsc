@@ -123,14 +123,14 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
                     <img className="w-[45rem] border-8 border-slate-700 rounded-xl" src={review.InfoAlbum.images[0].url}/>
                   </div>
                   <p className="font-semibold text-7xl text-center">{review.nameAlbum}</p>
-                  <p className="text-4xl text-center">by: {review.InfoAlbum.artists[0].name}</p>
+                  <p className="text-4xl text-center">{review.InfoAlbum.artists[0].name}</p>
 
                   <div className="flex font-bold justify-center items-center text-5xl my-1">
                     <i className="fa-solid fa-star text-[#E3A008]"></i>
                     <p>{ratingAlbum.toFixed(2)}</p>
                   </div>
                   
-                  <p className="text-justify mt-2 text-4xl font-thin">{review.avaliacao}</p>
+                  <p className="text-justify mt-2 text-5xl">{review.avaliacao}</p>
                 </div>
 
               </div>
