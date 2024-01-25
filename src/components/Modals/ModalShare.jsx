@@ -53,7 +53,7 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
     divRef.current.style.width = `${w}px`
     divRef.current.style.height = `${h}px`
 
-    if(h == 2000){
+    if(h == 1500){
       divRef.current.style.backgroundImage = `url('${FundoAva44}')`
     }else{
       divRef.current.style.backgroundImage = `url('${FundoAva169}')`
@@ -109,15 +109,15 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
                   >Imagem 16:9</button>
                   
                   <button
-                  onClick={()=> convertDivToImage(2000, 2000)} 
+                  onClick={()=> convertDivToImage(1500, 1500)} 
                   className="my-2 px-3 p-2 rounded-md border border-gray-400 transition-colors hover:bg-cyan-600 duration-500"
                   >Imagem 4:4</button>
                 </div>
               </div>
 
-              <div ref={divRef} className={`flex flex-col justify-center p-40 border-4 border-slate-800 items-center gap-2`}>
+              <div ref={divRef} className={`p-40 border-4 border-slate-800`}>
                 
-                <div className="w-full">
+                <div className="w-full h-full items-center gap-2 flex flex-col justify-center">
                   <p className="text-7xl font-bold mb-10">MelodyMingler</p>
                   <img className="w-[45rem] border-8 border-slate-700 rounded-xl" src={review.InfoAlbum.images[0].url}/>
                   <p className="font-semibold text-7xl text-center">{review.nameAlbum}</p>
