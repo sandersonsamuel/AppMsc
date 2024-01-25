@@ -53,6 +53,12 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
     divRef.current.style.width = `${w}px`
     divRef.current.style.height = `${h}px`
 
+    if(h == 1500){
+      divRef.current.style.backgroundImage = `url('${FundoAva44}')`
+    }else{
+      divRef.current.style.backgroundImage = `url('${FundoAva169}')`
+    }
+
     
 
     DomToImage.toPng(divRef.current)
@@ -109,9 +115,9 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
                 </div>
               </div>
 
-              <div ref={divRef} className={`hidden flex-col justify-center p-40 border-4 border-slate-800 items-center gap-2`}>
+              <div ref={divRef} className={`flex flex-col justify-center p-40 border-4 border-slate-800 items-center gap-2`}>
                 <p className="text-7xl font-bold mb-10">MelodyMingler</p>
-                <img className="w-[45rem] border-8 border-slate-700 rounded-xl" src={review.InfoAlbum.images[0].url} alt="" />
+                <img className="w-[45rem] border-8 border-slate-700 rounded-xl" src={review.InfoAlbum.images[0].url}/>
                 <p className="font-semibold text-7xl text-center">{review.nameAlbum}</p>
                 <p className="text-4xl">by: {review.InfoAlbum.artists[0].name}</p>
 
