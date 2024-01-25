@@ -115,11 +115,11 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
                 </div>
               </div>
 
-              <div ref={divRef} className={`hidden flex-col justify-center p-40 border-4 border-slate-800 items-center gap-2 absolute top-0 left-0`}>
+              <div ref={divRef} className={`hidden flex-col justify-center p-36 border-4 border-slate-800 items-center gap-4 absolute top-0 left-0`}>
                 <p className="text-7xl font-bold mb-10">MelodyMingler</p>
-                <img className="w-[45rem] border-8 border-slate-700 rounded-xl" src={review.InfoAlbum.images[0].url} alt="" />
-                <p className="font-semibold text-7xl text-center">{review.nameAlbum}</p>
-                <p className="text-4xl">by: {review.InfoAlbum.artists[0].name}</p>
+                <img className="w-[40rem] border-8 border-slate-700 rounded-xl" src={review.InfoAlbum.images[0].url} alt="" />
+                <p className="font-semibold text-6xl text-center">{review.nameAlbum}</p>
+                <p className="text-4xl">{review.InfoAlbum.artists[0].name}</p>
 
                 <div className="flex font-bold justify-center items-center text-5xl my-1">
                   <i className="fa-solid fa-star text-[#E3A008]"></i>
