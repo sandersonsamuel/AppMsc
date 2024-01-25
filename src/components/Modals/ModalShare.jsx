@@ -4,7 +4,7 @@ import { HiInformationCircle } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import DomToImage from "dom-to-image";
 
-import FundoAva44 from '../../assets/FundoMMAvaliação44@2x.png'
+import FundoAva44 from '../../assets/FundoMMAvaliação442x.png'
 import FundoAva169 from '../../assets/FundoMMAvaliação.png'
 
 function Alerta() {
