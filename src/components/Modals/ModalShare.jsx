@@ -53,7 +53,7 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
     divRef.current.style.width = `${w}px`
     divRef.current.style.height = `${h}px`
 
-    if(h == 1500){
+    if(h == 2000){
       divRef.current.style.backgroundImage = `url('${FundoAva44}')`
     }else{
       divRef.current.style.backgroundImage = `url('${FundoAva169}')`
@@ -109,7 +109,7 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
                   >Imagem 16:9</button>
                   
                   <button
-                  onClick={()=> convertDivToImage(1500, 1500)} 
+                  onClick={()=> convertDivToImage(2000, 2000)} 
                   className="my-2 px-3 p-2 rounded-md border border-gray-400 transition-colors hover:bg-cyan-600 duration-500"
                   >Imagem 4:4</button>
                 </div>
