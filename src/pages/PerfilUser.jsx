@@ -1,26 +1,34 @@
 import { Link, useParams } from "react-router-dom"
-import { auth } from "../configs/firebase"
+import { auth, databaseApp } from "../configs/firebase"
 import { useNavigate } from "react-router-dom"
 import 'firebase/firestore';
 import { useEffect, useState } from "react";
 import { GetAvalAlbum, GetAvalMusica } from "../components/GetAval";
 import { updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 export const PerfilUser = () => {
 
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const [avaliacoes, setAvaliacoes] = useState(null)
+  const [avaliacoesMusica, setAvaliacoesMusica] = useState(null)
   const [avaliacoesAlbum, setAvaliacoesAlbum] = useState(null)
 
-  const [avaliacoesUser, setAvaliacoesUser] = useState(null)
-  const [avaliacoesUserAlbum, setAvaliacoesUserAlbum] = useState(null)
-  
-  const [qteAvas, setQteAvas] = useState(0)
-  const [qteAvasAlbum, setQteAvasAlbum] = useState(0)
-
   const [userName, setUserName] = useState('')
+
+  function updateUserDB(){
+    const uid = auth.currentUser.uid
+
+    const docRef = doc(databaseApp, 'users', uid)
+    setDoc(docRef, {
+      [uid]: {
+        uid: uid,
+        userName: auth.currentUser.displayName,
+        photoUrl: auth.currentUser.photoURL,
+      }    }, {merge:true})
+
+  }
 
   const handleUserName = (event) =>{
     setUserName(event.target.value)
@@ -32,6 +40,7 @@ export const PerfilUser = () => {
         displayName: userName
       }).then(()=>{
         setUserName('')
+        updateUserDB()
       }).catch((error)=>{
         console.log(error)
       })
@@ -39,49 +48,9 @@ export const PerfilUser = () => {
   }
 
   useEffect(()=>{
-    GetAvalMusica(setAvaliacoes)
+    GetAvalMusica(setAvaliacoesMusica)
     GetAvalAlbum(setAvaliacoesAlbum)
   },[])
-
-  useEffect(()=>{
-    let avas = []
-    if (avaliacoesAlbum){
-      Object.values(avaliacoesAlbum).forEach((avaliacao)=>{
-        if (avaliacao.idUser == auth.currentUser.uid){
-          avas.push(avaliacao)
-        }
-      })
-      setAvaliacoesUserAlbum(avas)
-    }else{
-      setAvaliacoesUserAlbum(null)
-    }
-  }, [avaliacoesAlbum])
-
-  useEffect(()=>{
-    let avas = []
-    if (avaliacoes){
-      Object.values(avaliacoes).forEach((avaliacao)=>{
-        if (avaliacao.idUser == auth.currentUser.uid){
-          avas.push(avaliacao)
-        }
-      })
-      setAvaliacoesUser(avas)
-    }else{
-      setAvaliacoesUser(null)
-    }
-  }, [avaliacoes])
-
-  useEffect(()=>{
-    if(avaliacoesUser){
-      setQteAvas(Object.values(avaliacoesUser).length)
-    }
-  },[avaliacoesUser])
-
-  useEffect(()=>{
-    if(avaliacoesUserAlbum){
-      setQteAvasAlbum(Object.values(avaliacoesUserAlbum).length)
-    }
-  },[avaliacoesUserAlbum])
   
 
   if (auth.currentUser){
@@ -102,10 +71,10 @@ export const PerfilUser = () => {
               <p className="text-center md:text-start md:text-4xl overflow-hidden text-nowrap text-ellipsis">{auth.currentUser.displayName}</p>
               <p className="text-center md:text-start md:text-4xl md:min-h-12 overflow-hidden text-nowrap text-ellipsis">{auth.currentUser.email}</p>
 
-              <div className="md:flex my-2 gap-5">
-                <p className="text-center md:text-start text-sm md:text-md">Musicas Avaliadas: {qteAvas}</p>
-                <p className="text-center md:text-start text-sm md:text-md">Albuns Avaliados: {qteAvasAlbum}</p>
-              </div>
+              {<div className="md:flex my-2 gap-5">
+                <p className="text-center md:text-start text-sm md:text-md">Musicas Avaliadas: {avaliacoesMusica ? Object.values(avaliacoesMusica).length : 0}</p>
+                <p className="text-center md:text-start text-sm md:text-md">Musicas Avaliadas: {avaliacoesMusica ? Object.values(avaliacoesAlbum).length : 0}</p>
+              </div>}
 
             </div>
             

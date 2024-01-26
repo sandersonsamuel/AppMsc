@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signOut, updateProfile } from "firebase/auth"
 import { auth, databaseApp} from "../configs/firebase"
 import { Link, useNavigate } from "react-router-dom"
-
+import { doc, setDoc, updateDoc } from "firebase/firestore"
+import { merge } from "antd/es/theme/util/statistic"
 
 export function CriarConta(){
 
@@ -17,8 +18,22 @@ export function CriarConta(){
 
   function sigInGoogle(){
     signInWithPopup(auth, provider).then(result=>{
+      updateUserDB()
       navigate('/')
     }).catch(error=> console.log(error))
+  }
+
+  function updateUserDB(){
+    const uid = auth.currentUser.uid
+
+    const docRef = doc(databaseApp, 'users', uid)
+    setDoc(docRef, {
+      [uid]: {
+        uid: uid,
+        userName: auth.currentUser.displayName,
+        photoUrl: auth.currentUser.photoURL,
+      }    }, {merge:true})
+
   }
 
   async function CreatAccount(event){
@@ -37,6 +52,8 @@ export function CriarConta(){
         setEmail('')
         setUserName('')
         setPassword('')
+
+        updateUserDB()
 
         navigate('/')
         

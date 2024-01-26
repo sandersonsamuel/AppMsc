@@ -3,6 +3,7 @@ import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword} from "
 import { auth, databaseApp } from "../configs/firebase"
 import { Link, Navigate } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import { doc, setDoc } from "firebase/firestore"
 
 export function Login(){
 
@@ -18,6 +19,7 @@ export function Login(){
     event.preventDefault()
 
     signInWithEmailAndPassword(auth, email, password).then((response)=>{
+      updateUserDB()
       navigate('/')
     }).catch((error)=>{
       console.log(error)
@@ -27,8 +29,22 @@ export function Login(){
     })
   }
 
+  function updateUserDB(){
+    const uid = auth.currentUser.uid
+
+    const docRef = doc(databaseApp, 'users', uid)
+    setDoc(docRef, {
+      [uid]: {
+        uid: uid,
+        userName: auth.currentUser.displayName,
+        photoUrl: auth.currentUser.photoURL,
+      }    }, {merge:true})
+
+  }
+
   function sigInGoogle(){
     signInWithPopup(auth, provider).then(result=>{
+      updateUserDB()
       navigate('/')
     }).catch(error=> {
       console.log(error)
