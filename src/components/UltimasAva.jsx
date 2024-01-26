@@ -19,7 +19,7 @@ export function UltimasAva(){
     <>
       <div className="w-11/12 flex flex-col items-center h-[20rem] p-5 bg-slate-800 rounded-xl overflow-auto">
           <div className="w-full flex justify-between">
-            <p className="text-2xl font-semibold mb-4">Albuns Avaliados</p>
+            <p className="text-2xl font-semibold">Albuns Avaliados</p>
             {avaliacoes && <p className="text-2xl font-semibold">{Object.values(avaliacoes).length}</p>}
           </div>
           <div className="w-full">
