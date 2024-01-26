@@ -115,7 +115,7 @@ export const ModalShare = ({ review, avaliacoesDoAlbum, ratingAlbum }) => {
                 </div>
               </div>
 
-              <div ref={divRef} className={`p-40 border-8 border-slate-800 items-center gap-2`}>
+              <div ref={divRef} className={`hidden p-40 border-8 border-slate-800 items-center gap-2`}>
                 
                 <div className="w-full">
                   <p className="text-7xl text-center font-bold mb-10">MelodyMingler</p>
