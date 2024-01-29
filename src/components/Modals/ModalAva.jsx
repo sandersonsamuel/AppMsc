@@ -146,6 +146,10 @@ export function ModalAva({albumInfos, alerta}){
                 <Textarea onChange={(e)=> setTextAva(e.target.value)} id="comment" placeholder="Avalie aqui..." required rows={4} />
               </div>
 
+              <div className={`w-12 border-2 ${350 - textAva.length <= 25 ? 'border-red-500 text-red-500' : 350 - textAva.length > 25 && 350 - textAva.length <=50 ? 'border-yellow-400 text-yellow-400': 'border-green-500 text-green-500'} flex items-center justify-center rounded-full`}>
+                <p className="">{350 - textAva.length}</p>
+              </div>
+
             </div>
           </ModalBody>
           <Modal.Footer>
