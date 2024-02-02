@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "@firebase/auth";
 import { auth } from "../configs/firebase";
+import { FooterHome } from "../components/FooterHome";
 
 export function Home(){
 
@@ -58,6 +59,7 @@ export function Home(){
         </div>
 
       </div>
+      <FooterHome/>
     </>
   )
 }
