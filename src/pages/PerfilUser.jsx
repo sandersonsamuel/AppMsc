@@ -73,7 +73,7 @@ export const PerfilUser = () => {
 
               {<div className="md:flex my-2 gap-5">
                 <p className="text-center md:text-start text-sm md:text-md">Musicas Avaliadas: {avaliacoesMusica ? Object.values(avaliacoesMusica).length : 0}</p>
-                <p className="text-center md:text-start text-sm md:text-md">Musicas Avaliadas: {avaliacoesMusica ? Object.values(avaliacoesAlbum).length : 0}</p>
+                <p className="text-center md:text-start text-sm md:text-md">Álbuns Avaliados: {avaliacoesMusica ? Object.values(avaliacoesAlbum).length : 0}</p>
               </div>}
 
             </div>
