@@ -30,6 +30,8 @@ export const ReviewAlbum = ({review, complete}) => {
   useEffect(()=>{
     if (avaliacoes){
     setAvaliacoesDoAlbum(Object.values(avaliacoes).filter((avaliacao)=> avaliacao.idAlbum === review.idAlbum))
+    }else{
+      setAvaliacoesDoAlbum(null)
     }
 
   }, [avaliacoes])

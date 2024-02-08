@@ -10,6 +10,7 @@ import { doc, onSnapshot } from 'firebase/firestore'
 import { ReviewAlbum } from './ReviewAlbum'
 import { Alert } from 'flowbite-react'
 import { HiInformationCircle } from 'react-icons/hi'
+import { GetAvalAlbum } from './GetAval'
 
 function Alerta(){
   return(
@@ -49,16 +50,13 @@ export function Album(){
 
     if (albuns) {
 
-      if (Object.values(albuns).length > 0) {
-        Object.values(albuns).forEach(albumAva=>{
-          if (albumAva.idAlbum === albumId){
-            setAvaliacaoAlbum(albumAva)
-          }
-        })
-      }else{
-        setAvaliacaoAlbum(null)
-      }
-      
+      Object.values(albuns).forEach(albumAva=>{
+        if (albumAva.idAlbum === albumId){
+          setAvaliacaoAlbum(albumAva)
+        }else{
+          setAvaliacaoAlbum(null)
+        }
+      })
     }
 
   },[albuns])
@@ -69,13 +67,8 @@ export function Album(){
       return;
     }
 
-    const unsubscribe = onSnapshot(doc(databaseApp, `avaliacoes/${auth.currentUser.uid}`), (docSnap) => {
-      if (docSnap.exists()) {
-        setAlbuns(docSnap.data().albuns)
-      }
-    })
+    GetAvalAlbum(setAlbuns)
 
-    return () => unsubscribe();
   }, [auth.currentUser]);
 
   useEffect(() => {

@@ -153,8 +153,8 @@ export function ModalAva({albumInfos, alerta}){
             </div>
           </ModalBody>
           <Modal.Footer>
-            <div className="flex w-full justify-between">
-              <div className="flex gap-2">
+            <div className="flex w-full justify-between gap-1">
+              <div className="flex gap-1 md:gap-2">
                 <Button size={'sm'} onClick={handleSubmit} disabled={textAva.length > 350}>Enviar</Button>
                 <Button size={'sm'} color="gray" onClick={handleClose}>Cancelar</Button>
               </div>
@@ -207,7 +207,7 @@ function AlertDeleteAva({setClodeModal, albumInfos}) {
       {isAva && 
         <>
 
-          <Button size={'sm'} color="failure" onClick={()=> setOpenModal(true)}>Redefinir</Button>
+          <Button size={'sm'} color="failure" onClick={()=> setOpenModal(true)}>Detelar</Button>
           
           <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
             <Modal.Header />
