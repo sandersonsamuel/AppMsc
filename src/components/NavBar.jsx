@@ -56,7 +56,6 @@ export function NavBar(){
               {!logged && <li className="cursor-pointer text-[0.9rem] md:text-lg font-bold hover:opacity-70" ><Link to={'/login'}>Login</Link></li>}
               {!logged && <li className="cursor-pointer text-[0.9rem] md:text-lg font-bold hover:opacity-70" ><Link to={'/criarconta'} >Criar Conta</Link></li>}
               {logged && <Link to={"/my"}><li className="cursor-pointer lg:text-lg font-bold hover:opacity-70 text-center" >Minha Atividade</li></Link>}
-              <li className="cursor-pointer lg:text-lg font-bold hover:opacity-70 text-center" >Albuns do Momento</li>
             </ul>
             
             <div className="md:hidden flex gap-3 items-center">
