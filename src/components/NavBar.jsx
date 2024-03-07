@@ -55,7 +55,7 @@ export function NavBar(){
             <ul className="hidden lg:flex md:gap-5 gap-2 m-5 md:m-0 w-full md:w-auto justify-center">
               {!logged && <li className="cursor-pointer text-[0.9rem] md:text-lg font-bold hover:opacity-70" ><Link to={'/login'}>Login</Link></li>}
               {!logged && <li className="cursor-pointer text-[0.9rem] md:text-lg font-bold hover:opacity-70" ><Link to={'/criarconta'} >Criar Conta</Link></li>}
-              {logged && <Link to={"/my"}><li className="cursor-pointer lg:text-lg font-bold hover:opacity-70 text-center" >Minha Atividade</li></Link>}
+              {logged && <Link to={"/my"}><li className="flex items-center justify-center cursor-pointer lg:text-lg font-bold hover:opacity-70 text-center" >Minha Atividade</li></Link>}
             </ul>
             
             <div className="md:hidden flex gap-3 items-center">
