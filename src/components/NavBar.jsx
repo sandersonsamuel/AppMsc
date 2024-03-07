@@ -49,13 +49,13 @@ export function NavBar(){
   return(
     <>
       <nav className={`w-full h-40 md:h-20 lg:h-20 ${menu && 'h-52 md:h-28'} duration-300 text-white bg-neutral-950 p-3 md:p-5 flex flex-col md:gap-2`}>
-        <div className="w-full flex flex-col md:flex-row items-center md:items-start md:justify-between gap-2 flex-wrap">
+        <div className="w-full flex flex-col md:flex-row items-center md:justify-between gap-2 flex-wrap">
           <div className="hidden md:block"><Link to={'/'}><h1 className="text-2xl font-bold">MelodyMingler.</h1></Link></div>
 
             <ul className="hidden lg:flex md:gap-5 gap-2 m-5 md:m-0 w-full md:w-auto justify-center">
               {!logged && <li className="cursor-pointer text-[0.9rem] md:text-lg font-bold hover:opacity-70" ><Link to={'/login'}>Login</Link></li>}
               {!logged && <li className="cursor-pointer text-[0.9rem] md:text-lg font-bold hover:opacity-70" ><Link to={'/criarconta'} >Criar Conta</Link></li>}
-              {logged && <Link to={"/my"}><li className="flex items-center justify-center cursor-pointer lg:text-lg font-bold hover:opacity-70 text-center" >Minha Atividade</li></Link>}
+              {logged && <Link to={"/my"}><li className="cursor-pointer lg:text-lg font-bold hover:opacity-70 text-center" >Minha Atividade</li></Link>}
             </ul>
             
             <div className="md:hidden flex gap-3 items-center">
